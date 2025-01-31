@@ -1,0 +1,105 @@
+<section class="clearfix p-t50 overlay-secondary-dark bg-primary background-blend-multiply overflow-hidden" style="background-image: url(/assets/images/background/bg3.webp); background-repeat: no-repeat; background-position: right center; background-size: cover;">
+    <div class="container">
+        <div class="row content-wrapper style-2">
+            <div class="col-xl-6">
+                <div class="content-media">
+                    <div class="dz-media">
+                        <img src="/assets/images/about/img2.png" alt="">
+                    </div>
+                    <div class="circle-wrapper" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)">
+                        <span class="circle1">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                        <span class="circle2">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </div>
+                    <div class="item1" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)">
+                        <div class="info-widget style-1 move-3">
+                            <div class="avatar-group">
+                                <img class="avatar rounded-circle avatar-sm border border-white border-2" src="/assets/images/avatar/small/avatar1.webp" alt="">
+                                <img class="avatar rounded-circle avatar-sm border border-white border-2" src="/assets/images/avatar/small/avatar2.webp" alt="">
+                                <img class="avatar rounded-circle avatar-sm border border-white border-2" src="/assets/images/avatar/small/avatar3.webp" alt="">
+                                <img class="avatar rounded-circle avatar-sm border border-white border-2" src="/assets/images/avatar/small/avatar4.webp" alt="">
+                            </div>
+                            <div class="clearfix ms-2">
+                                <span class="number text-primary">150k</span>
+                                <span>Patient recovers</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item2" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)">
+                        <div class="info-widget style-3 move-1">
+                            <div class="widget-head">
+                                <div class="widget-media">
+                                    <img src="/assets/images/avatar/small/avatar5.webp" alt="">
+                                </div>
+                                <div class="widget-content">
+                                    <h6 class="title">Dr. Natali jackson</h6>
+                                    <ul class="star-list">
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p>“It is a long established fact that a reader will be distracted by the readable content”</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-10 align-self-center m-b30">
+                <div class="section-head style-1 m-b30 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.7s">
+                    <h2 class="title text-white m-b0">Real Patients, Real Stories. And our achievements </h2>
+                </div>
+                <div class="swiper-btn-center-lr wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.7s">
+                    <div class="swiper testimonial-swiper1">
+                        <div class="swiper-wrapper">
+
+                            <% testimonial.forEach(item => { %>
+                            <div class="swiper-slide">
+                                <div class="testimonial-1 shadow-md" style="height: 324px;">
+                                    <div class="dz-media">
+                                        <div class="media-inner">
+                                            <img src="<%= process.env.S3_BASE_URL + item.image %>" alt="/" style="height:250px; object-fit:cover" >
+                                            <!-- <a href="https://www.youtube.com/watch?v=o8OgzQdA70c" class="video-bx1 video-sm popup-youtube">
+                                                <div class="video-btn bg-primary">
+                                                    <i class="fa fa-play"></i>
+                                                </div>
+                                                <span>Watch The Video</span>
+                                            </a> -->
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <h5 class="testimonial-name"><%= item.name %></h5>
+                                            <span class="testimonial-position"><%= item.companyProfile %></span>
+                                        </div>
+                                    </div>
+                                    <div class="testimonial-detail">
+                                        <div class="testimonial-text">
+                                            <!-- <h3 class="title">Best Treatment</h3> -->
+                                            <p><%= item.review %></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                
+                        </div>
+                    </div>
+                    <div class="swiper1-button-prev btn-prev">
+                        <img src="/assets/images/svg/arrow-left.svg" alt="">
+                    </div>
+                    <div class="swiper1-button-next btn-next">
+                        <img src="/assets/images/svg/arrow-right.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>

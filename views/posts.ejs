@@ -1,0 +1,296 @@
+<%- include('header') %>
+
+<main class="page-content">
+    <div class="dz-bnr-inr-entry d-table-cell" style="width: 100%;    flex-direction: column;
+    display: flex !important
+; position:relative; text-align:center; margin:50px 0" >
+        <h1 class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">Posts</h1>
+        <nav aria-label="breadcrumb" class="breadcrumb-row wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item">Posts</li>
+            </ul>
+        </nav>
+        <style>
+            .dz-btn::before, .dz-btn::after {
+                content: "";
+                position: absolute;
+               margin-top: 28px;
+                width: 35%;
+                height: 1px;
+                background-color: rgba(0, 0, 0, .1); /* Adjust the color as needed */
+            }
+            
+            .dz-btn::before {
+                left: 0;
+            }
+            
+            .dz-btn::after {
+                right: 0;
+            }
+
+            @media (max-width:600px){
+                .dz-btn::before, .dz-btn::after {
+                    display: none; /* Adjust the color as needed */
+                }
+            }
+        </style>
+        <div class="dz-btn" style="padding-top: 25px;">
+            <% if (posts.length > 0) { %>
+            <a href="javascript:void(0);" style="font-size: 16px;" class="btn btn-lg btn-icon btn-primary radius-xl btn-shadow mb-3 mb-sm-0">
+                All
+            </a>
+            <% } %>
+            <% if (casestudy.length > 0) { %>
+                <a href="javascript:void(0);" style="font-size: 16px;" class="btn btn-lg btn-icon btn-primary radius-xl btn-shadow mb-3 mb-sm-0">
+                    Case Study
+                </a>
+                <% } %>
+                
+            <% if (events.length > 0) { %>
+                <a href="javascript:void(0);" style="font-size: 16px;" class="btn btn-lg btn-icon btn-primary radius-xl btn-shadow mb-3 mb-sm-0">
+                    Events
+                </a>
+                <% } %>
+            <% if (blogs.length > 0) { %>
+            <a href="javascript:void(0);" style="font-size: 16px;" class="btn btn-lg btn-icon btn-primary radius-xl btn-shadow mb-3 mb-sm-0">
+                Blogs
+            </a>
+            <% } %>
+        </div>
+        
+    </div>
+
+<section class="content-inner" style="padding-top: 25px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-12 m-b30 pe-xl-5">
+
+                <% if (posts.length > 0) { %>
+                    <div class="posts">
+                       
+                
+                        <% posts.forEach(item => { %>
+                            <div class="dz-card style-2 blog-half m-b35 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.5s">
+                                <div class="dz-media">
+                                    <img src="<%= process.env.S3_BASE_URL + item.banner.image %>" alt="Blog_cover">
+                                </div>
+                                <div class="dz-info">
+                                    <div class="dz-meta">
+                                        <ul>
+                                            <li>
+                                                <%= item.category === 'NEWS_FEED' ? 'CASE STUDY' : item.category %>
+                                            </li>
+                                            <li class="post-date"><%= item.postDate %></li>
+                                        </ul>
+                                    </div>
+                                    <h3 class="dz-title">
+                                        <!-- Check the category and change the link based on it -->
+                                        <% if (item.category === 'NEWS_FEED') { %>
+                                            <a href="/casestudy-details/<%= item.seoDetails.slug %>"><%= item.title %></a>
+                                        <% } else if (item.category === 'EVENTS') { %>
+                                            <a href="/event-details/<%= item.seoDetails.slug %>"><%= item.title %></a>
+                                        <% } else if (item.category === 'BLOG') { %>
+                                            <a href="/blog-details/<%= item.seoDetails.slug %>"><%= item.title %></a>
+                                        <% } %>
+                                    </h3>
+                                    
+                                    <p><%- item.description.replace(/<[^>]*>/g, '').split(' ').slice(0, 16).join(' ') %>...</p>
+                                    
+                                    <!-- Update the "Read More" button link similarly -->
+                                    <a href="
+                                        <% if (item.category === 'NEWS_FEED') { %>
+                                            /casestudy-details/<%= item.seoDetails.slug %>
+                                        <% } else if (item.category === 'EVENTS') { %>
+                                            /event-details/<%= item.seoDetails.slug %>
+                                        <% } else if (item.category === 'BLOG') { %>
+                                            /blog-details/<%= item.seoDetails.slug %>
+                                        <% } %>
+                                    " class="btn icon-link-hover-end btn-primary radius-sm">
+                                        Read More <i class="feather icon-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } %>
+
+            <% if (casestudy.length > 0) { %>
+    <div class="casestudy">
+
+        <% casestudy.forEach(item => { %>
+            <div class="dz-card style-2 blog-half m-b35 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.5s">
+                <div class="dz-media">
+                    <img src="<%= process.env.S3_BASE_URL + item.banner.image %>" alt="Blog_cover">
+                </div>
+                <div class="dz-info">
+                    <div class="dz-meta">
+                        <ul>
+                            <li>
+                                <%= item.category === 'NEWS_FEED' ? 'CASE STUDY' : item.category %>
+                            </li>
+                            <li class="post-date"><%= item.postDate %></li>
+                        </ul>
+                    </div>
+                    <h3 class="dz-title">
+                        <a href="/casestudy-details/<%= item.seoDetails.slug%>"><%= item.title %></a>
+                    </h3>
+                    <p><%- item.description.replace(/<[^>]*>/g, '').split(' ').slice(0, 16).join(' ') %>...</p>
+
+                    <a href="/casestudy-details/<%= item.seoDetails.slug%>" class="btn icon-link-hover-end btn-primary radius-sm">
+                        Read More <i class="feather icon-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } %>
+
+            
+           <!-- EVENTS Section -->
+<% if (events.length > 0) { %>
+    <div class="events">
+      
+
+        <% events.forEach(item => { %>
+            <div class="dz-card style-2 blog-half m-b35 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.5s">
+                <div class="dz-media">
+                    <img src="<%= process.env.S3_BASE_URL + item.banner.image %>" alt="Event_cover">
+                </div>
+                <div class="dz-info">
+                    <div class="dz-meta">
+                        <ul>
+                            <li><%= item.category %></li>
+                            <li class="post-date"><%= item.postDate %></li>
+                        </ul>
+                    </div>
+                    <h3 class="dz-title"><a href="/event-details/<%= item.seoDetails.slug %>"><%= item.title %></a></h3>
+                    <p><%- item.description.replace(/<[^>]*>/g, '').split(' ').slice(0, 16).join(' ') %>...</p>
+
+                    <a href="/event-details/<%= item.seoDetails.slug %>" class="btn icon-link-hover-end btn-primary radius-sm">
+                        Read More <i class="feather icon-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        <% }) %>    
+    </div>
+<% } %>
+
+<!-- BLOGS Section -->
+<% if (blogs.length > 0) { %>
+    <div class="blogs">
+       
+        <% blogs.forEach(item => { %>
+            <div class="dz-card style-2 blog-half m-b35 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.5s">
+                <div class="dz-media">
+                    <img src="<%= process.env.S3_BASE_URL + item.banner.image %>" alt="Blog_cover">
+                </div>
+                <div class="dz-info">
+                    <div class="dz-meta">
+                        <ul>
+                            <li><%= item.category %></li>
+                            <li class="post-date"><%= item.postDate %></li>
+                        </ul>
+                    </div>
+                    <h3 class="dz-title"><a href="/blog-details/<%= item.seoDetails.slug%>"><%= item.title %></a></h3>
+                    <p><%- item.description.replace(/<[^>]*>/g, '').split(' ').slice(0, 16).join(' ') %>...</p>
+
+                    <a href="/blog-details/<%= item.seoDetails.slug%>" class="btn icon-link-hover-end btn-primary radius-sm">
+                        Read More <i class="feather icon-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        <% }) %>  
+    </div>
+<% } %>
+
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            // Select buttons
+            const buttons = document.querySelectorAll(".dz-btn a");
+        
+            // Select sections
+            const sections = {
+                "All": document.querySelector(".posts"), // Default section (Posts)
+                "Blogs": document.querySelector(".blogs"),
+                "Case Study": document.querySelector(".casestudy"),
+                "Events": document.querySelector(".events")
+            };
+        
+            // Initially, only "All" section (Posts) is visible
+            Object.values(sections).forEach(section => section.style.display = 'none');
+            sections["All"].style.display = 'block'; // Show "All" section by default
+        
+            buttons.forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const sectionName = button.textContent.trim();
+        
+                    // Hide all sections before showing the selected one
+                    Object.values(sections).forEach(section => section.style.display = 'none');
+                    
+                    // Show the selected section
+                    const selectedSection = sections[sectionName];
+                    if (selectedSection) {
+                        selectedSection.style.display = 'block';
+                    }
+                });
+            });
+        });
+        
+            
+        </script>
+            <div class="col-xl-3 col-lg-12">
+                <aside class="side-bar sticky-top right m-b30 p-0">
+
+
+<div class="widget recent-posts-entry wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.5s">
+<div class="widget-title">
+    <h4 class="title">Glimpses</h4>
+</div>
+<div class="widget-post-bx">
+    <% gallery.forEach((album) => { %>
+        <% if (album.mediaDetails && album.mediaDetails.images && album.mediaDetails.images.length > 0) { %>
+            <div class="widget-post clearfix">
+                <div class="dz-media"> 
+                    <img src="<%= process.env.S3_BASE_URL + album.mediaDetails.images[0] %>" alt="/">
+                </div>
+                <div class="dz-info">
+                    <div class="dz-meta">
+                        <ul>
+                            <li class="post-date"><a href="javascript:void(0);"><%= album.postDate %></a></li>
+                        </ul>
+                    </div>
+                    <h6 class="title"><a href="/gallery"><%= album.title %></a></h6>
+                </div>
+            </div>
+        <% } %>
+    <% }); %>
+    
+</div>
+</div>
+<div class="widget widget_tag_cloud wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.5s">
+<div class="widget-title">
+    <h4 class="title">Tags</h4>
+</div>
+<div class="tagcloud"> 
+    <a href="javascript:void(0);">Acupressure</a>
+    <a href="javascript:void(0);">Allgemein</a>
+    <a href="javascript:void(0);">Blood</a>
+    <a href="javascript:void(0);">Food</a>
+    <a href="javascript:void(0);">Health</a>
+    <a href="javascript:void(0);">Mental Health</a>
+    <a href="javascript:void(0);">Therapy</a>
+    <a href="javascript:void(0);">Walking</a>
+</div>
+</div>
+</aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<%- include('footer') %> 

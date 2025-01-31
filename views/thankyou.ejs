@@ -1,0 +1,54 @@
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="/assets/css/style.css"> 
+    
+    <meta name="description" content="<%= seoDetails?.metaDescription || '' %>">
+
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="og:title" content="<%= seoDetails?.title || '' %>">
+    <meta property="og:description" content="<%= seoDetails?.metaDescription || '' %>">
+    <meta property="og:image" content="<%= seoDetails?.metaImage || '' %>">
+    <meta name="author" content="">
+    <meta property="og:type" content="website">
+
+    <meta name="keywords" content="<%= seoDetails?.keywords || '' %>"> 
+    <link rel="canonical" href="<%= seoDetails?.canonical || '' %>" />
+
+
+    <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="<%= seoDetails?.title || '' %>">
+        <meta name="twitter:description" content="<%= seoDetails?.metaDescription || '' %>">
+        <meta name="twitter:image" content="<%= seoDetails?.metaImage || '' %>">
+        <meta name="twitter:url" content="<%= seoDetails.canonical || ''  %>">
+    <!--====== Title ======-->
+    <title><%= seoDetails?.title %></title>
+    
+    
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="/assets/images/icon/logo small.png" type="image/png">
+</head>
+<body>
+    <div class="message-container ">
+        <h1 class="title" style="z-index: 2;">Thank You!</h1>
+        <p id="thank-you-message"></p>
+        <a href="/" class="main-btn main-btn-2">Go Back to Home</a>
+    </div>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const message = sessionStorage.getItem("thankYouMessage");
+        
+        if (message) {
+            // Display the message in an element with ID 'thank-you-message'
+            document.getElementById("thank-you-message").textContent = message;
+    
+            // Optionally clear the message after it's shown (to avoid persisting after page reload)
+            sessionStorage.removeItem("thankYouMessage");
+        }
+    });
+    
+</script>

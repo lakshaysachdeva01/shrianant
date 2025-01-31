@@ -1,0 +1,88 @@
+
+
+.icon-bx-wraper.style-1 .icon-bx .feather{
+  font-size: 24px !important;
+}
+
+
+.blog-description,.description-block{
+  line-height: 30px;
+}
+
+.content-inner{
+  padding-top: 0px !important;
+}
+
+.step-content .icon-bx-wraper{
+  text-align: center;
+  width: 140px;
+  height: 140px;
+  padding: 20px 5px 20px 5px !important;
+  border-radius: 25px !important;
+}
+
+
+
+/* .step-content .icon-bx-wraper .dz-title{
+  padding-bottom: 20px !important;
+} */
+
+.step-content .icon-bx-wraper:after {
+  mask-image: none !important;
+  border-radius: 25px !important;
+}
+.step-content .department-option{
+
+width: 140px;
+margin: 10px ;
+}
+
+  .department-option.selected  .icon-bx-wraper{
+    
+    border:1px solid #2ab0e5 !important;
+    box-shadow: 0 0  1px #2ab0e5;
+
+}
+
+
+.step-content .prev .right-icon {
+  border-color: #000000;
+  background-color: #000000;
+  color: #fff;}
+
+ .sticky-header .logo-header{
+  display: none !important;
+ }
+  @media (max-width:990px) {
+    .sticky-header .logo-header{
+      display: block !important;
+     }
+    
+  }
+  @media (max-width:768px) {
+    #step-content-1  .formlayout{
+      flex-direction: column !important;
+      align-items: center;
+    }
+    
+    .step-content  .formlayout .col-6{
+      width: 100% !important;
+      padding: 0 !important;
+    }
+   
+      .content-wrapper.style-8 .form-body {
+        padding: 35px 0 !important;
+      }
+  .doctor-cards,.department-card{
+    justify-content: center;
+  }
+  }
+
+  input:invalid {
+    border: none !important;
+    outline: none !important;
+}
+  .form-control, .is-invalid {
+    border: none !important;
+    outline: none !important;
+}

@@ -1,0 +1,60 @@
+<%- include('header') %>
+<section class="content-inner" style="margin-top: 85px;">
+    <div class="container" style="max-width:1200px">
+        <div class="row">
+            <% jobs.forEach(item => { %>
+            <div class="card mb-4 shadow-sm"  style="max-width: 370px; padding:15px;  box-shadow:0 0 5px rgb(0,0,0,0.2) !important;">
+                <!-- <img  style="max-height: 300px;" alt="A detailed description of the top story image" class="card-img-top" src="https://placehold.co/600x400"/> -->
+                <div class="card-body" style="background: none; padding:20px 10px 0 10px" >
+                   
+                    <div class="blog-single style-1" style="margin-bottom: 0 !important;">
+                        <div class="dz-meta" style="margin-bottom: 15px;">
+                          <ul>
+                            <li style="background: rgba(244, 103, 0, .1); color:#F46700" class="post-date"><%= item.workMode.replace(/_/g, ' ') %></li>
+
+                            <li  style="background: rgba(244, 103, 0, .1); color:#F46700" class="post-date"><%= item.salary.minimumValue %>-<%= item.salary.maximumValue %> <%= item.salary.currency.toUpperCase() %><%= item.salary.rate.replace(/_/g, ' ').replace(/PER/g, '/') %></li>
+                        </ul>
+                    </div>
+                      </div>
+                 <h3 class="card-title" style="color: #0A3366;">
+                    <%= item.title %>
+                 </h3>
+                 <div style="color:#566593 !important; " class="card-text">
+                    <%- item.description.replace(/<\/?span[^>]*>/g, '').split(' ').slice(0, 16).join(' ') %>...
+
+                 <div  style="margin-top:10px">
+        <a  style="color: #0A3366;" href="javascript:void(0);"><i style="margin-right: 10px; " class="flaticon-placeholder"></i>raipur..
+        </a><br>
+       <p style="margin-top: 1rem;"><span><%= item.experienceLevel %></span> | <span> <%= item.jobPosition %>
+        </span>
+    </p>
+    <p></p><% item.qualification.qualificationRequired.forEach(tag => { %>
+        <span>
+                  <%= tag %>
+        </span>
+<% }) %>
+        </p>
+        <div>
+
+        </div>
+                </div>
+
+<a style="color:#F46700" href="/listing-enquiry/<%= item.seoDetails.slug %>"><div class="footerbody" style="display:flex; gap:10px; border-top: 1px solid rgb(0,0,0,0.1); padding:15px 0; margin-top:25px; ">
+    <span>Apply Now</span>
+    <i style="font-size: 20px; transform:rotate(180deg)" class="flaticon-arrow"></i>
+    
+</div></a>                
+
+               </div>
+               <% }) %>
+        </div>
+    </div>
+</section>
+
+<style>
+    .blog-single .card-text span{
+   color: #566593 !important;
+    }
+</style>
+
+<%- include('footer') %>

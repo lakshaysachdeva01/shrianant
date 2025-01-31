@@ -1,0 +1,32 @@
+<section class="content-inner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-4">
+                <div class="section-head style-1 m-b30">
+                    <h2 class="title m-b0 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">Our Accepted insurance</h2>
+                </div>
+            </div>
+            <div class="col-xl-8 m-b30">
+                <div class="swiper client-swiper2">
+                    <div class="swiper-wrapper">
+
+                        <% clients.forEach(item => { %>
+                        <div class="swiper-slide wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="0.8s">
+                            <div class="clients-logo2">
+                                <img src="<%= process.env.S3_BASE_URL + item.logo %>" onclick="window.location.href='<%= item.hyperLink %>';" alt="<%= item.title %>">
+                            </div>
+                        </div>
+                        <% }) %>
+                        <% clients.forEach(item => { %>
+                            <div class="swiper-slide wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="0.8s">
+                                <div class="clients-logo2">
+                                    <img src="<%= process.env.S3_BASE_URL + item.logo %>" onclick="window.location.href='<%= item.hyperLink %>';" alt="<%= item.title %>">
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>

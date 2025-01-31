@@ -1,0 +1,195 @@
+<%- include('header') %>
+<main class="page-content">
+	
+    <div class="dz-bnr-inr-entry d-table-cell" style="width: 100%;    flex-direction: column;
+    display: flex !important
+; position:relative; text-align:center; margin:50px 0" >
+        <nav aria-label="breadcrumb" class="breadcrumb-row wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item">Meet Our Doctor</li>
+            </ul>
+        </nav>
+        
+        
+    </div>
+
+<section class="content-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 m-b30">
+                <aside class="side-bar sticky-top">
+                    <div class="widget wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="0.7s">
+                        <div class="dz-team style-5" >
+                            <div class="dz-media" style="padding: 0;">
+                                <img style="width: 100%; height:450px; border-radius:15px; object-fit:cover" src="<%= process.env.S3_BASE_URL + doctordetails.profilePicture %>" alt="/">
+                            </div>
+                            <ul class="dz-social">
+                                <li>
+                                    <a href="https://www.linkedin.com" target="_blank">
+                                        <i class="fa-brands fa-linkedin"></i>
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="https://www.instagram.com" target="_blank">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com" target="_blank">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com" target="_blank">
+                                        <i class="fa-brands fa-x-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.youtube.com" target="_blank">
+                                        <i class="fa-brands fa-youtube"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget widget_schedule bg-secondary text-white wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.7s">
+                        <div class="widget-title">
+                            <h4 class="title text-white">My Time Schedule</h4>
+                        </div>
+                        <table class="table table-border-bottom m-b0">
+                            <% doctordetails.availabilitySchedule.forEach(avail => { %>
+                            <tr>
+                                <th><%= avail.day %></th>
+                                <td class="text-end"><%= avail.startTime %> - <%= avail.endTime %></td>
+                            </tr>
+                            <% }) %>
+                        </table>
+                    </div>
+                    <div class="widget widget_info bg-light wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
+                        <div class="icon-bx-wraper style-1 m-b20">
+                            <div class="icon-bx bg-primary">
+                                <span class="icon-cell">
+                                    <i class="feather icon-map-pin"></i>
+                                </span>
+                            </div>
+                            <div class="icon-content">
+                                <h5 class="dz-title fw-semibold">Address</h5>
+                                <p class="fw-normal">234 Oak Drive, Villagetown, USA</p>
+                            </div>
+                        </div>
+                        <div class="icon-bx-wraper style-1 m-b20">
+                            <div class="icon-bx bg-primary">
+                                <span class="icon-cell">
+                                    <i class="feather icon-phone"></i>
+                                </span>
+                            </div>
+                            <div class="icon-content">
+                                <h5 class="dz-title fw-semibold">Call Us</h5>
+                                <p class="fw-normal"><a href="tel:+11234567890" class="text-body">+1 123 456 7890</a></p>
+                            </div>
+                        </div>
+                        <div class="icon-bx-wraper style-1 m-b15">
+                            <div class="icon-bx bg-primary">
+                                <span class="icon-cell">
+                                    <i class="feather icon-mail"></i>
+                                </span>
+                            </div>
+                            <div class="icon-content">
+                                <h5 class="dz-title fw-semibold">Send us a Mail</h5>
+                                <p class="fw-normal"><a href="mailto:info@example.com" class="text-body">info@example.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            <div class="col-lg-8 ps-xl-5 m-b30">
+                <div class="section-head style-1 mb-30">
+                    <h2 class="titlev fw-semibold m-b0 wow fadeInUp" data-id="<%= doctordetails._id %>" data-wow-delay="0.1s" data-wow-duration="0.7s"><%= doctordetails.fullName %></h2>
+                    <p class="text-primary m-b20 fw-normal font-16 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.7s"><%= doctordetails.education %></p>
+                    <p class="fw-normal m-b0 wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s"><%= doctordetails.profileDescription %></p>
+                </div>
+                <table class="table table-striped table-striped-rounded m-b40 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.7s">
+                    <tr>
+                        <th>Specialty</th>
+                        <td>Orthodontist Surgeon Specialize</td>
+                    </tr>
+                    <tr>
+                        <th>Degrees</th>
+                        <td><a href="javascript:void(0);"><%= doctordetails.education %></a></td>
+                    </tr>
+                    <tr>
+                        <th>Experience</th>
+                        <td  data-practice-date="<%= doctordetails.firstDateOfPractice %>" class="experience"></td>
+                        <script>
+                            // Function to calculate years of experience from the first date of practice
+                            document.addEventListener("DOMContentLoaded", function () {
+                                // Find all elements with the class 'experience' that have a data-practice-date attribute
+                                document.querySelectorAll('.experience').forEach(element => {
+                                    const firstDateOfPractice = element.getAttribute('data-practice-date');
+                                    const experience = calculateExperience(firstDateOfPractice);
+                                    
+                                    // Only display the experience if it's a valid number
+                                    if (!isNaN(experience) && experience >= 0) {
+                                        element.textContent = `${experience}+ Years of Experience Overall`; // Add the '+' symbol
+                                    } else {
+                                        element.textContent = ''; // If experience is not valid, set empty text
+                                    }
+                                });
+                        
+                                function calculateExperience(firstDate) {
+                                    const practiceDate = new Date(firstDate);
+                                    const currentDate = new Date();
+                        
+                                    // If the date is invalid, return NaN
+                                    if (isNaN(practiceDate)) {
+                                        return NaN;
+                                    }
+                        
+                                    let yearsOfExperience = currentDate.getFullYear() - practiceDate.getFullYear();
+                        
+                                    // Check if the practice date hasn't yet passed this year
+                                    if (
+                                        currentDate.getMonth() < practiceDate.getMonth() ||
+                                        (currentDate.getMonth() === practiceDate.getMonth() && currentDate.getDate() < practiceDate.getDate())
+                                    ) {
+                                        yearsOfExperience--; // Subtract 1 year if the practice date hasn't been reached yet this year
+                                    }
+                        
+                                    return yearsOfExperience; // Return years of experience (will append '+' in text)
+                                }
+                            });
+                        </script>
+                    </tr>
+                    <!-- <tr>
+                        <th>Awards</th>
+                        <td>2018 - 2019 : William Allan Award</td>
+                    </tr> -->
+                </table>
+                
+                <h3 class="font-20 m-b15 wow fadeInUp" data-wow-delay="0.5s" data-wow-duration="0.7s">Professional Skills</h3>
+                <ul class=" list-light text-secondary fw-medium grid-2 m-b40 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.7s">
+
+                    <% doctordetails.subSpecialization.forEach(tag => { %>
+                <li>
+                    <span class="icon-cell">
+                        <img style="background-color: #ecf5fb; width:35px; height:35px; border-radius:50px; padding:10px; margin:8px 0" src="/assets/images/svg/check2.svg" alt="">
+                    </span>
+                        <a href="javascript:void(0);" style="margin-left:8px; "><%= tag %></a>
+                    </li>
+                    <% }) %>
+                </ul>
+                <%- include('./partials/wizardappoint.ejs') %>   
+            </div>
+            
+           
+        </div>
+    </div>
+</section>
+
+
+</main>
+
+
+
+<%- include('footer') %>

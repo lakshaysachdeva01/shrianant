@@ -1,0 +1,694 @@
+
+<%- include('header') %>
+<main class="page-content">
+	
+    <section class="content-inner-2 bg-light z-2" style="background-image: url(images/background/bg5.png);">
+<div class="container">
+    <div class="row align-items-end content-wrapper style-8" style="justify-content: center;">
+        <style>/* style.css */
+        
+            
+            .wizard-container {
+
+              background-color: transparent;
+              max-width: 800px;
+              margin: 12px auto;
+             
+             
+            }
+            
+            .progress-bar {
+              display: none;
+              justify-content: space-between;
+              margin-bottom: 20px;
+            }
+            
+            .step {
+
+              text-align: center;
+              padding: 5px;
+              background-color: lightgray;
+              border-radius: 4px;
+            }
+            
+            
+            
+            .step-content {
+              display: none;
+            }
+            .step-content h2{
+                margin-bottom: 30px;
+            }
+            
+            .step-content.active {
+              display: block;
+            }
+            
+           
+           
+            </style>
+        <div class="col-lg-11" data-bottom-top="transform: translateY(100px)" data-top-bottom="transform: translateY(-10px)">
+            <div class="form-wrapper style-1 text-vr-wrapper">
+              
+                <div class="form-body bg-primary background-blend-burn" style="background-image: url(images/background/bg2.png); background-size: cover; background-color:white !important; ">
+                    
+                    <div class="wizard-container">
+                        
+                        <!-- Form Steps -->
+                        <form  id="wizardform">
+                         
+                            <div class="step-content"  id="step-content-1">
+                            <div style="width: 100%; display:flex; flex-direction:column; justify-content:center" >
+                                <div class="container" style="    padding: 20px 0 30px 0;
+                                margin-top: 15px;
+                                justify-content:center;
+                                text-align:center;
+                                display: grid
+                            ;">
+                                    <div class="dz-bnr-inr-entry d-table-cell">
+                                        <h1 class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">Appointment</h1>
+                                        <nav aria-label="breadcrumb" class="breadcrumb-row wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
+                                            <ul class="breadcrumb">
+                                                <li class="breadcrumb-item"><a href="/">Patient Details</a></li>
+                                               
+                                            </ul>
+                                        </nav>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+
+                          <div class="col-12 formlayout" style="display: flex
+;
+    flex-wrap: wrap;">
+                            <div class="col-6 m-b30" style="padding:0 60px 0 0">
+                                <div class="form-floating floating-underline input-light">
+                                    <input name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.name %>" type="text" class="form-control" id="inputYourName" placeholder="Your Name" required>
+                                    <label for="inputYourName">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-6 m-b30">
+                                <div class="form-floating floating-underline input-light">
+                                    <input type="number" type="text" class="form-control" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.age %>" id="inputYourName" placeholder="Age" required>
+                                    <label for="inputYourName">Age</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-6 m-b30" style="padding: 0 60px 0 0 ; color:#031B4e">
+                                <label for="gender">Gender</label>
+                                <div class="gender-options" style="padding-top: 10px ; display:flex; gap:50px">
+                                    <label class="gender-label">
+                                        <input type="radio" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.gender %>" value="male" required> Male
+                                    </label>
+                                    <label class="gender-label">
+                                        <input type="radio" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.gender %>" value="female" required> Female
+                                    </label>
+                                    <label class="gender-label">
+                                        <input type="radio" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.gender %>" value="other" required> Other
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-6 m-b30">
+                                <div class="form-floating floating-underline input-light">
+                                    <input type="tel" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.phone %>" class="form-control" id="inputContact" placeholder="Contact No." required>
+                                    <label for="inputContact">Contact No.</label>
+                                </div>
+                            </div>
+                            <div class="col-6 m-b30" style="padding:0 60px 0 0">
+                                <div class="form-floating floating-underline input-light">
+                                    <input type="email" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.email %>" class="form-control" id="inputEmail" placeholder="Email ID" required>
+                                    <label for="inputEmail">Email ID</label>
+                                </div>
+                            </div>
+                            <div class="col-6 m-b30">
+                                <div class="form-floating floating-underline input-light">
+                                    <input type="text" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.city %>" class="form-control" id="inputCity" placeholder="City" required>
+                                    <label for="inputCity">City</label>
+                                </div>
+                            </div>
+                            <div class="col-12 m-b30" >
+                                <div class="form-floating floating-underline input-light">
+                                    <input type="text" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.address %>" class="form-control" id="inputAddress" placeholder="Address" required>
+                                    <label for="inputAddress">Address</label>
+                                </div>
+                            </div>
+                            <div class="col-12 m-b30">
+                                <div class="form-floating floating-underline input-light">
+                                    <textarea name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.remarks %>" class="form-control" id="inputReason" placeholder="Reason for Appointment" required></textarea>
+                                    <label for="inputReason">Reason for Appointment</label>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12" style="margin-top: 40px; display: flex
+;
+    justify-content: center;">
+                                <button type="button" class="btn btn-lg btn-icon btn-white hover-secondary btn-shadow" onclick="nextStep(1)">
+                                    Next <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                          </div>
+                       
+
+
+<!-- Step 3: Appointment Information -->
+<div class="step-content " id="step-content-2" style="padding-top: 20px;">
+
+    <label for="department"> Select Department</label>
+    <div class="col-12 department-card" style="display: flex; flex-wrap: wrap; ">
+        
+       <!-- Hidden input field to store selected department -->
+<input type="hidden" id="selectedDepartment" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.department %>" required>
+
+<% specialization.forEach(item => { %>
+    <div class="col-xl-3 col-md-6 m-b30 wow department-option fadeInUp" data-wow-delay="0.8s" data-wow-duration="0.8s"  
+        data-department-id="<%= item._id %>" data-name="<%= item.title %>">
+        
+        <div style="border:1px solid rgb(0,0,0,0.1)" class="icon-bx-wraper box-hover">
+            <div class="icon-bx-head">
+                <div class="icon-bx justify-content-center">
+                    <span class="icon-cell">
+                        <img style="width:50px; height:50px;"  src="<%= process.env.S3_BASE_URL + item.icon %>" alt="icon">
+                    </span>
+                </div>
+                <div class="icon-content">
+                    <h3 style="font-size: 16px; margin-top:18px" class="dz-title"><%= item.title %></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+<% }) %>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const hiddenInput = document.getElementById("selectedDepartment");
+        const departmentOptions = document.querySelectorAll(".department-option");
+    
+        departmentOptions.forEach(option => {
+            option.addEventListener("click", function () {
+                // Remove 'selected' class from all options
+                departmentOptions.forEach(opt => opt.classList.remove("selected"));
+    
+                // Mark clicked option as selected
+                this.classList.add("selected");
+    
+                // Set the hidden input value to the selected department name
+                const departmentName = this.getAttribute("data-department-id");
+                hiddenInput.value = departmentName;
+            });
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const doctorCards = document.querySelectorAll('.doctor-card');
+        const hiddenInput = document.getElementById('inputDoctor'); // Hidden input field to store selected doctor's info
+    
+        doctorCards.forEach(card => {
+            card.addEventListener('click', function () {
+                // Remove 'selected' class from all cards
+                doctorCards.forEach(card => card.classList.remove('selected'));
+    
+                // Add 'selected' class to the clicked card
+                this.classList.add('selected');
+    
+                // Update the hidden input field with the selected doctor's data
+                const selectedDoctorId = this.getAttribute('data-doctor-id'); // Get doctor ID or any other attribute
+                hiddenInput.value = selectedDoctorId;
+            });
+        });
+    });
+</script>
+</div>
+
+<div class="col-sm-12 m-b30 justify-content-center"  >
+    
+    <!-- Hidden input field to store the selected doctor's ID -->
+    <input type="hidden" id="inputDoctor" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.doctor %>" required>
+
+    <label for="doctor" style="padding-left: 5px;">Select Doctor</label>
+    
+    <div class="doctor-cards" style="display: flex; flex-wrap:wrap; ">
+        <% doctors.forEach(item => { %>
+            <div class="doctor-card" data-doctor-id="<%= item._id %>" data-name="<%= item.fullName %>" data-education="<%= item.education %>" data-image="<%= process.env.S3_BASE_URL + item.profilePicture %>">
+                <img src="<%= process.env.S3_BASE_URL + item.profilePicture %>" alt="Doctor image" class="doctor-image">
+                <div class="doctor-info">
+                    <h3><%= item.fullName %></h3>
+                    <p><%= item.education %></p>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+</div>
+
+<style>
+    .doctor-cards {
+        padding: 0 0px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .doctor-card {
+        width: 170px;
+        height: 205px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: white;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s;
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .doctor-card img {
+        width: 100%;
+        height: 140px;
+        border-radius: 3px;
+        object-fit: cover;
+    }
+    
+    .doctor-info {
+        padding: 10px;
+    }
+    
+    .doctor-info h3 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    
+    .doctor-info p {
+        margin: 0;
+        font-size: 11px;
+        color: #777;
+    }
+    
+    .doctor-card.selected {
+        border: 1px solid #2ab0e5;
+    }
+    @media (max-width:550px) {
+        .doctor-card{
+            width: 140px;
+            padding: 6px;
+            margin: 9px;
+        }
+        .doctor-info h3{
+            font-size: 12px;
+     
+        }
+        .doctor-info p{
+            font-size: 9px;
+        }
+    }
+</style>
+
+
+
+   
+    <div class="col-sm-12" style="margin-top: 40px; display: flex
+;
+    justify-content: center;">
+        <button type="button" class="btn btn-lg btn-icon btn-white prev hover-secondary btn-shadow" onclick="prevStep(2)">
+            <span class="left-icon"><i class="feather icon-arrow-left"></i></span> Previous 
+        </button>
+        <button type="button" class="btn btn-lg btn-icon btn-white hover-secondary btn-shadow" onclick="nextStep(2)">
+            Next <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
+        </button>
+        
+    </div>
+</div>
+
+<!-- Step 4: Preferred Appointment Details -->
+<div class="step-content" id="step-content-3" style="padding-top: 20px;">
+   
+    <div class="col-12" style="display: flex; flex-wrap: wrap;"></div>
+    <div class="col-12 m-b30">
+        <label for="preferredDate" style="color: #031b4e; font-size:16px; padding-bottom:10px">Preferred Date</label>
+        <div class="form-floating floating-underline input-light">
+           
+            <div class="date-tabs" id="dateTabs">
+                <!-- Tabs will be dynamically populated here -->
+            </div>
+            <!-- Hidden input to store selected date -->
+            <input type="hidden" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.date %>" id="selectedDate">
+        </div>
+    </div>
+   
+    <style>
+        .date-tabs {
+            display: flex;
+            gap: 30px;
+            padding: 0 20px 10px 10px;
+            overflow-x: auto; /* Enables horizontal scrolling */
+            white-space: nowrap; /* Prevents tabs from wrapping to the next line */ /* Prevents scrollbar from overlapping */
+            scrollbar-width: thin; /* Makes scrollbar thinner (Firefox) */
+            scrollbar-color: #ecf5fb transparent; /* Custom scrollbar color */
+        }
+        
+        /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+        .date-tabs {
+            overflow-x: auto; /* Allow horizontal scrolling */
+            scrollbar-width: none; /* For Firefox */
+        }
+        
+        .date-tabs::-webkit-scrollbar {
+            width: 0; /* Hide scrollbar */
+            height: 0; /* Hide scrollbar */
+        }
+        
+        .date-tabs::-webkit-scrollbar-thumb {
+            background-color: transparent; /* Hide the thumb */
+        }
+        
+        .date-tabs::-webkit-scrollbar-track {
+            background-color: transparent; /* Hide the track */
+        }
+        
+        
+        /* Styling for each date tab */
+        .date-tab {
+            display: inline-block;
+            min-width: 130px;
+            padding: 25px 0;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+        
+        /* Selected tab styling */
+        .date-tab.selected {
+             border:1px solid #2ab0e5;
+            
+        }
+        
+        .date-tab.selected strong,
+        .date-tab.selected span {
+            color: #031B4e !important;
+        }
+        
+        .time-tabs {
+            padding: 0 20px 0px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .time-header {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #031B4e;
+        }
+        
+        .time-slot-row {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .time-tab {
+            display: inline-block;
+            padding: 10px 0px;
+           
+            border: 1px solid #ccc;
+            border-radius: 17px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+            text-align: center;
+            min-width: 130px;
+        }
+        
+    
+        
+        
+        .time-tab.selected {
+        border:1px solid #2ab0e5;
+            color: #031B4e;
+        }
+
+        @media (max-width:768px) {
+            .date-tabs,.time-slot-row{
+                gap: 10px;
+            }
+            .time-tab{
+                min-width: 103px;
+            }
+        }
+        @media (max-width:500px) {
+            .time-tab{
+                padding: 10px 39px;
+            }
+        }
+        @media (max-width:500px) {
+            .time-tab{
+                padding: 10px 39px;
+            }
+        }
+        @media (max-width:450px) {
+            .time-tab{
+                padding: 10px 30px;
+            }
+        }
+        @media (max-width:420px) {
+            .time-tab{
+                padding: 10px 23px;
+            }
+        }
+        @media (max-width:400px) {
+            .time-tab{
+                padding: 10px 20px;
+            }
+        }
+        @media (max-width:391) {
+            .time-tab{
+                padding: 10px 18px;
+            }
+        }
+
+    </style>
+    <label for="preferredTime" style="color: #031b4e; font-size:16px; padding-bottom:10px">Preferred Time</label>
+    <div class="col-12 m-b30">
+        <div class="form-floating floating-underline input-light">
+            
+            <div class="time-tabs" id="timeTabs"></div>
+            <input type="hidden" name="<%= WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS.time %>" id="selectedTime">
+        </div>
+    </div>
+    
+    
+    <script>
+        function formatDate(date) {
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+            const day = days[date.getDay()]; // Get the day name
+            const dateString = date.getDate().toString().padStart(2, '0'); // Ensure two-digit format
+            const month = months[date.getMonth()]; // Get month name
+            const year = date.getFullYear().toString().slice(-2); // Get last two digits of the year
+    
+            return { fullDate: `${dateString} ${month} ${year}`, day }; // Return an object
+        }
+    
+        function populateDateTabs() {
+            const dateTabsContainer = document.getElementById('dateTabs');
+            const currentDate = new Date();
+    
+            for (let i = 0; i < 7; i++) {
+                const nextDate = new Date(currentDate);
+                nextDate.setDate(currentDate.getDate() + i);
+                const tabValue = nextDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+                const { fullDate, day } = formatDate(nextDate); // Get formatted date and day
+    
+                // Create tab element
+                const tab = document.createElement('div');
+                tab.classList.add('date-tab');
+                tab.setAttribute('data-value', tabValue);
+                tab.innerHTML = `<img style="width:20px; padding-bottom:5px " src="assets/images/svg/calendar.svg" alt=calender /><br><span style="font-size:14px">${day}</span><br><strong style="font-size:14px">${fullDate}</strong>`; // Date on top, day below
+                tab.onclick = function () {
+                    selectTab(tabValue, tab);
+                };
+    
+                dateTabsContainer.appendChild(tab);
+            }
+        }
+    
+        function selectTab(value, selectedTab) {
+            document.getElementById('selectedDate').value = value; // Store selected value in hidden input
+            
+            // Remove 'selected' class from all tabs
+            document.querySelectorAll('.date-tab').forEach(tab => tab.classList.remove('selected'));
+    
+            // Add 'selected' class to clicked tab
+            selectedTab.classList.add('selected');
+        }
+    
+        populateDateTabs();
+
+        function generateTimeSlots() {
+            const timeTabsContainer = document.getElementById('timeTabs');
+            const currentTime = new Date();
+            currentTime.setMinutes(currentTime.getMinutes() + 5); // Add 5 minutes buffer
+        
+            const timeSlots = {
+                "Morning": ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM"],
+                "Afternoon": ["01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM"],
+                "Evening": ["05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM"]
+            };
+        
+            let htmlContent = "";
+        
+            for (const [period, slots] of Object.entries(timeSlots)) {
+                htmlContent += `<div class="time-header">${period}</div><div class="time-slot-row">`;
+                slots.forEach(slot => {
+                    const slotDate = new Date();
+                    const [time, meridian] = slot.split(" ");
+                    const [hours, minutes] = time.split(":").map(Number);
+        
+                    slotDate.setHours(meridian === "PM" && hours !== 12 ? hours + 12 : hours);
+                    slotDate.setMinutes(minutes);
+                    slotDate.setSeconds(0);
+        
+                    const isDisabled = slotDate < currentTime ? "disabled" : "";
+        
+                    htmlContent += `<div class="time-tab ${isDisabled}" data-value="${slot}" onclick="selectTime('${slot}', this)" ${isDisabled ? 'style="pointer-events: none; opacity: 0.5;"' : ''}>${slot}</div>`;
+                });
+                htmlContent += `</div>`; // Close the row
+            }
+        
+            timeTabsContainer.innerHTML = htmlContent;
+        }
+        
+        function selectTime(value, selectedTab) {
+            if (selectedTab.classList.contains("disabled")) return; // Prevent selection of disabled slots
+        
+            document.getElementById('selectedTime').value = value; // Store selected value in hidden input
+        
+            // Remove 'selected' class from all time tabs
+            document.querySelectorAll('.time-tab').forEach(tab => tab.classList.remove('selected'));
+        
+            // Add 'selected' class to clicked tab
+            selectedTab.classList.add('selected');
+        }
+        
+        // Generate time slots on page load
+        generateTimeSlots();
+        
+    </script>
+    
+      
+    <div class="form-group" style="display: none;" >
+        <input type="hidden" id="websiteProjectId" name="websiteProjectId" value="6760ee6577e9b0d3ffef0e70">
+    </div>
+        
+    <div class="col-sm-12" style="margin-top: 40px; display: flex
+    ;
+        justify-content: center;">
+            <button type="button" class="btn btn-lg btn-icon btn-white hover-secondary prev btn-shadow" onclick="prevStep(3)">
+                <span class="left-icon"><i class="feather icon-arrow-left"></i></span>  Previous 
+            </button>
+            <button type="submit" class="btn btn-lg btn-icon btn-white hover-secondary btn-shadow">
+                Submit <span class="right-icon"><i class="feather icon-check-circle"></i></span>
+            </button>
+           
+        </div>
+        
+        
+    </div>
+   
+
+
+<!-- Step 5: Additional Information -->
+
+
+                        </form>
+                      </div>
+                      <%- include('./partials/enquire.ejs') %>
+<script>
+    let currentStep = 1;
+
+function showStep(step) {
+  // Hide all steps
+  const steps = document.querySelectorAll('.step-content');
+  steps.forEach((stepContent) => {
+    stepContent.classList.remove('active');
+  });
+
+  // Show current step
+  document.getElementById(`step-content-${step}`).classList.add('active');
+
+  // Update progress bar
+  const progressSteps = document.querySelectorAll('.step');
+  progressSteps.forEach((progressStep, index) => {
+    if (index + 1 === step) {
+      progressStep.classList.add('active');
+    } else if (index + 1 < step) {
+      progressStep.classList.add('completed');
+    } else {
+      progressStep.classList.remove('active', 'completed');
+    }
+  });
+}
+
+function validateStep(step) {
+  const currentStepContent = document.getElementById(`step-content-${step}`);
+  const inputs = currentStepContent.querySelectorAll('input, select, textarea');
+  let isValid = true;
+
+  inputs.forEach(input => {
+    if (!input.value) {
+      isValid = false;
+      input.classList.add('error');
+      // Optionally, you can show an error message next to the input
+    } else {
+      input.classList.remove('error');
+    }
+  });
+
+  return isValid;
+}
+
+function nextStep(step) {
+  if (validateStep(step)) {
+    currentStep++;
+    if (currentStep <= 5) {
+      showStep(currentStep);
+    }
+  } else {
+    alert('Please fill all required fields.');
+  }
+}
+
+function prevStep(step) {
+  currentStep--;
+  if (currentStep >= 1) {
+    showStep(currentStep);
+  }
+}
+
+// Initialize the first step
+showStep(currentStep);
+
+</script>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+ 
+
+
+</main>
+
+<%-  include('footer') %>

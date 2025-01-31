@@ -1,0 +1,304 @@
+<%- include('header') %>
+
+<main class="page-content">
+	
+    <!-- Blog Large -->
+   
+    <section class="content-inner-3" style="padding-top: 110px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 pe-xl-5 m-b30">
+                    <div class="dz-blog blog-single sidebar style-1">
+                        <div class="dz-card">
+                            <div class="dz-media overlay-secondary-light">
+                                <% 
+                                // Function to convert a YouTube URL (watch or short form) into an embeddable URL
+                                function convertToEmbedUrl(url) {
+                                    let videoId = "";
+                                    if (url.includes("youtu.be")) {
+                                        // Handle short URL format (e.g., https://youtu.be/Tjxx80uYyUQ)
+                                        videoId = url.split("youtu.be/")[1]?.split("?")[0];
+                                    } else if (url.includes("youtube.com/watch")) {
+                                        // Handle full URL format (e.g., https://www.youtube.com/watch?v=Tjxx80uYyUQ)
+                                        videoId = url.split("v=")[1]?.split("&")[0];
+                                    }
+                                    return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+                                }
+                                %>
+                                
+                                <% if (blogfull?.banner?.bannerType === "VIDEO" && blogfull?.banner?.video && blogfull?.banner?.video !== "") { %>
+                                  <!-- Render video if the banner type is VIDEO and video URL exists -->
+                                  <iframe 
+                                      width="100%" 
+                                      height="433" 
+                                      src="<%= convertToEmbedUrl(blogfull.banner.video) %>" 
+                                      title="YouTube video player" 
+                                      frameborder="0" 
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                      referrerpolicy="strict-origin-when-cross-origin" 
+                                      allowfullscreen>
+                                  </iframe>
+                              <% } else if (blogfull?.banner?.bannerType === "IMAGE" && blogfull?.banner?.image) { %>
+                                  <!-- Render image if the banner type is IMAGE and image URL exists -->
+                                  <img 
+                                      style="padding-top: 0;" 
+                                      src="<%= process.env.S3_BASE_URL + blogfull.banner.image %>" 
+                                      alt="blog_banner">
+                              <% } %>
+                                          
+                            </div>
+                            <div class="dz-info">
+                              <div class="dz-meta">
+                                <ul>
+                                  <li class="post-date">
+                                      <%= blogfull.category === 'NEWS_FEED' ? 'CASE STUDY' : blogfull.category %>
+                                  </li>
+                                  <li class="post-date"><%= blogfull.postDate %></li>
+                              </ul>
+                          </div>
+                                <h1 class="dz-title mx-auto" style="padding-bottom: 25px; margin-bottom:25px; border-bottom:1px solid #ded9d8"><%= blogfull.title %></h1>
+                                
+                            </div>
+                        </div>
+                        <style>
+                            .gallery-container {
+                              display: grid;
+                              gap: 10px;
+                              margin: 25px 0px;
+                              grid-template-columns: repeat(2, 1fr); /* 2 images per row */
+                              grid-auto-rows: auto; /* Let the row height auto-adjust based on content */
+                            }
+                            
+                            .gallery-item {
+                              position: relative;
+                              width: 100%; /* Ensure images take full width of the grid cell */
+                              padding-top: 56%; /* Aspect ratio 16:9 (adjust if you need a different aspect ratio) */
+                              overflow: hidden;
+                              transition: all 0.3s ease; /* Smooth transition for resizing */
+                            }
+                            
+                            .gallery-item img {
+                              position: absolute;
+                              top: 0;
+                              left: 0;
+                              width: 100%;
+                              height: 100%;
+                              object-fit: cover; /* Ensure image fills the square */
+                            }
+                            
+                            /* This class ensures the last image (if odd) spans 2 columns without adding extra height */
+                            .gallery-item.grid-span-2 {
+                              grid-column: span 2; /* Span across 2 columns */
+                              padding-top: 50%; /* Ensure aspect ratio is maintained */
+                            }
+                            
+                            
+                          </style>
+                        <div class="dz-info">
+                            <div class="blog-description"><%- blogfull.description %></div>
+             <div class="description-block">
+              <% blogfull.multipleDescriptions.forEach(function(item) { %>
+                <div class="single-description">
+                  <div><%- item.description %>
+                  </div>
+                  
+                  <% if (item.singleImage && item.singleImage.image) { %>
+                    <!-- Display Single Image -->
+                    <div class="single-image-container">
+                      <img src="<%= process.env.S3_BASE_URL + item.singleImage.image %>" alt="Single Image" class="single-image">
+                    </div>
+                  <% } %>
+              
+                  
+                  <% 
+                  // Function to convert a YouTube URL (watch or short form) into an embeddable URL
+                  function convertToEmbedUrl(url) {
+                      let videoId = "";
+                      if (url.includes("youtu.be")) {
+                          // Handle short URL format (e.g., https://youtu.be/Tjxx80uYyUQ)
+                          videoId = url.split("youtu.be/")[1]?.split("?")[0];
+                      } else if (url.includes("youtube.com/watch")) {
+                          // Handle full URL format (e.g., https://www.youtube.com/watch?v=Tjxx80uYyUQ)
+                          videoId = url.split("v=")[1]?.split("&")[0];
+                      }
+                      return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+                  }
+                  %>
+                  
+                  <% if (item?.youtube && item?.youtube !== "") { 
+                      const embedUrl = convertToEmbedUrl(item.youtube); 
+                      if (embedUrl) { %>
+                          <iframe 
+                          width="100%" 
+                          height="433" 
+                              src="<%= embedUrl %>" 
+                              title="YouTube video player" 
+                              frameborder="0" 
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                              referrerpolicy="strict-origin-when-cross-origin" 
+                              allowfullscreen>
+                          </iframe>
+                      <% } else { %>
+                          <p>Invalid YouTube URL provided.</p>
+                      <% } 
+                  } %>
+                  
+
+
+                  <% if (item.multipleImages && item.multipleImages.length > 0) { %>
+                    <!-- Display Multiple Images as a Gallery -->
+                    
+                    <div class="gallery-container" id="galleryContainer">
+                      <% item.multipleImages.forEach(function(image, index) { %>
+                        <div class="gallery-item">
+                          <a class="image-popup" href="<%= process.env.S3_BASE_URL + image %>">
+                            <img src="<%= process.env.S3_BASE_URL + image %>" alt="karyasiddhi_blogimages">
+                          </a>
+                        </div>
+                      <% }); %>
+                    </div>
+                    
+                    
+                   
+                    
+                    
+                  <% } %>
+                  
+                  <% if (blogfull.multipleDescriptions.youtube) { %>
+                    <div class="youtube-container">
+                      <iframe 
+                        width="100%" 
+                        height="435" 
+                        src="<%= blogfull.multipleDescriptions.youtube.replace('watch?v=', 'embed/') %>" 
+                        title="YouTube video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                      </iframe>
+                    </div>
+                  <% } %>
+                  
+              
+                  <% if (item.button && item.button.hyperLink && item.button.title) { %>
+                    <div class="button">
+                    <a style="line-height: 55px;" href="<%= item.button.hyperLink %>" class="main-btn main-btn-2"><%= item.button.title %></a>
+                  </div>
+                  <% } %> <!-- Only display the button if both hyperLink and title exist -->
+              
+                </div>
+              <% }); %>
+              <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    function updateGridLayout() {
+                      const galleryContainers = document.querySelectorAll('.gallery-container'); // Select all gallery containers
+                      
+                      galleryContainers.forEach(galleryContainer => {
+                        const galleryItems = galleryContainer.querySelectorAll('.gallery-item');
+                        
+                        // Apply grid layout with 2 columns per row
+                        galleryContainer.style.display = 'grid';
+                        galleryContainer.style.gridTemplateColumns = 'repeat(2, 1fr)';
+                        galleryContainer.style.gap = '10px'; // Space between images
+                        galleryContainer.style.gridAutoRows = 'auto'; // Let rows adjust height based on content
+                  
+                        // Handle the last image if the total count is odd
+                        const totalImages = galleryItems.length;
+                        if (totalImages % 2 !== 0) {
+                          // Last image takes full width if odd number of images
+                          galleryItems[totalImages - 1].classList.add('grid-span-2');
+                        } else {
+                          // Ensure no extra spanning for even images
+                          galleryItems[totalImages - 1].classList.remove('grid-span-2');
+                        }
+                      });
+                    }
+                  
+                    // Update the grid layout on load and resize
+                    updateGridLayout();
+                    window.addEventListener('resize', updateGridLayout);
+                  });
+                  
+              </script>
+          </div>
+                            <div class="dz-share-post meta-bottom">
+                               
+                                <div class="dz-social-icon primary-light">
+                                    <ul>
+                                        <li>
+                                            <a href="https://www.facebook.com" target="_blank">
+                                                <i class="fa-brands fa-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.instagram.com" target="_blank">
+                                                <i class="fa-brands fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://twitter.com" target="_blank">
+                                                <i class="fa-brands fa-x-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.linkedin.com" target="_blank">
+                                                <i class="fa-brands fa-linkedin"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- blog END -->
+                </div>
+                <div class="col-xl-3">
+                    <aside class="side-bar sticky-top  m-b30 p-0">
+
+
+                      <div class="widget recent-posts-entry wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.5s">
+                        <div class="widget-title">
+                            <h4 class="title">Other Events</h4>
+                        </div>
+                        
+                        <div class="widget-post-bx">
+                            <% latestevents.forEach(item=> { %>
+                            <div class="widget-post clearfix">
+                                <div class="dz-media"> 
+                                    <img src="<%= process.env.S3_BASE_URL + item.banner.image %>" alt="latestblogs">
+                                </div>
+                                <div class="dz-info">
+                                    <div class="dz-meta">
+                                        <ul>
+                                            <li class="post-date"><a href="javascript:void(0);"><%= item.postDate %></a></li>
+                                        </ul>
+                                    </div>
+                                    <h6 class="title"><a href="/blog-details/<%= item.seoDetails.slug %>"><%= item.title %></a></h6>
+                                </div>
+                            </div>
+                           
+                          <% }) %>
+                    
+                        </div>
+                    </div>
+<div class="widget widget_tag_cloud wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.5s">
+    <div class="widget-title">
+        <h4 class="title">Tags</h4>
+    </div>
+    <div class="tagcloud"> 
+        <% blogfull.seoDetails.tags.forEach(tag => { %>
+                
+            <a href="javascript:void(0);" title=""><%= tag %></a>
+      
+        <% }) %>
+    </div>
+</div>
+</aside>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</main>
+
+<%- include('footer') %>

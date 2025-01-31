@@ -1,0 +1,49 @@
+<section class="content-inner">
+    <div class="container">
+        <div class="section-head style-1 m-b30 row align-items-end">
+            <div class="col-sm-7 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
+                <h2 class="title m-b0">We Employ only <br> Specialists </h2>
+            </div>
+            <div class="col-sm-5 text-sm-end d-sm-block d-none wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
+                <a href="team.html" class="btn btn-icon btn-primary btn-shadow">
+                    View All
+                    <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+
+            <!-- Swiper Container -->
+
+            <% doctors.slice(0, 4).forEach(item => { %>
+                <div class="col-xl-3 col-sm-6 wow fadeInUp" style="margin-bottom: 20px;" data-wow-delay="0.2s" data-wow-duration="0.8s">
+                    <div class="dz-team style-1 box-hover">
+                        <div class="dz-media">
+                            <img src="<%= process.env.S3_BASE_URL + item.profilePicture %>" style="height:350px; object-fit:cover" alt="/">
+                            <a href="/appointment" class="btn btn-primary">
+                                <i class="feather icon-calendar m-r5"></i>
+                                Appointment Now
+                            </a>
+                        </div>
+                        <div class="dz-content">
+                            <div class="clearfix">
+                                <h3 class="dz-name"><a href="/team-detail"><%= item.fullName %></a></h3>
+                                <span class="dz-position"><%= item.education %></span>
+                            </div>
+                            <a href="/team-detail" class="btn btn-square btn-secondary">
+                                <i class="feather icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+            
+   
+
+</div>
+
+          
+          
+           
+        
+    </section>
