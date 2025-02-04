@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoplay Video on Scroll</title>
+    <style>
+        body {
+             /* Just to create scroll effect */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .video-container {
+            width: 90%;
+            max-width: 800px;
+            height: auto;
+            overflow: hidden;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Scroll Down to See the Video</h1>
+
+    <div class="video-container">
+        <video id="autoplayVideo" muted loop>
+            <source src="/assets/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const video = document.getElementById("autoplayVideo");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        video.play();
+                    } else {
+                        video.pause();
+                        video.currentTime = 0; // Reset the video
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(video);
+        });
+    </script>
+
+</body>
+</html>

@@ -9,7 +9,7 @@ const { CONTACT_ENQUIRY_DYNAMIC_FIELDS_KEYS, WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_K
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = 3006;
 const metaLogoPath = "assets/images/icon/metalogo.png";
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -173,6 +173,20 @@ app.get('/thankyou', async (req, res) => {
     } 
    
     res.render('thankyou', {body: "", seoDetails});
+});
+
+app.get('/video', async (req, res) => {
+  
+    const baseUrl = req.protocol + '://' + req.get('Host');
+    const seoDetails = {
+        title: "",
+        metaDescription: "",
+        metaImage: `${baseUrl}/${metaLogoPath}`,
+        keywords:"",
+        canonical:"",
+    } 
+   
+    res.render('video', {body: "", seoDetails});
 });
 
 app.get('/appointment', async (req, res) => {
