@@ -520,6 +520,19 @@ app.get('/casestudy-details/:slug', async (req, res) => {
     });
 });
 
+app.get('/video', async (req, res) => {
+  
+    const baseUrl = req.protocol + '://' + req.get('Host');
+    const seoDetails = {
+        title: "",
+        metaDescription: "",
+        metaImage: `${baseUrl}/${metaLogoPath}`,
+        keywords:"",
+        canonical:"",
+    } 
+   
+    res.render('video', {body: "", seoDetails});
+});
 // app.use(async (req, res, next) => {
 //     const baseUrl = req.protocol + '://' + req.get('Host');
 //     const seoDetails = {
