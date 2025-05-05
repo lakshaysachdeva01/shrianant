@@ -1,11 +1,11 @@
 require('dotenv').config();  // Load environment variables from .env file
 const { API_BASE_URL , WEBSITE_ID_KEY} = require('./config/config');
 const { getWebsiteID } = require('./utils/helper');
-const { getdoctordetails,getjobs,getHomepopupBanner, getotherjobs,getjobdetails, getdoctors ,gettestimonial,getclientle , getspecialization } = require('./controller/homecontroller');
+const { getdoctordetails,getjobs,getHomeDesktopBanner,getHomepopupBanner, getotherjobs,getjobdetails, getdoctors ,gettestimonial,getclientle,getdoctorsbyspecailization , getspecialization,getspecializationdetails } = require('./controller/homecontroller');
 const { getBlog,getposts , getevents,getBlogfull , getlatestblogs,getlatestevents, getcasestudy,getlatestcasestudy} = require('./controller/blogcontroller');
 const { getgallery } = require('./controller/gallerycontroller');
 const { CONTACT_ENQUIRY_DYNAMIC_FIELDS_KEYS, WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS, CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS} = require('./config/config');
-// const { getlocation,getHomeDesktopBanner  ,getAdBanner,  ,getfilteredlocation  ,CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS , BOOKING_ENQUIRY_DYNAMIC_FIELDS_KEYS} = require('./controller/locationcontroller');
+// const { getlocation,  ,getAdBanner,  ,getfilteredlocation  ,CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS , BOOKING_ENQUIRY_DYNAMIC_FIELDS_KEYS} = require('./controller/locationcontroller');
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -24,7 +24,9 @@ app.get('/', async (req, res) => {
     const baseUrl = req.protocol + '://' + req.get('Host');
     const doctors = await getdoctors();
     const websiteID = await getWebsiteID(); 
-    // const banners = await getHomeDesktopBanner();
+    const banners = await getHomeDesktopBanner();
+    const posts = await getposts();
+    const specialization = await getspecialization();
     const testimonial = await gettestimonial();
     // const blogs = await getBlog();
     // const gallery= await getgallery();
@@ -40,7 +42,7 @@ app.get('/', async (req, res) => {
     } 
    
    
-    res.render('index', {body: "",baseUrl,websiteID,testimonial,popupbanners,doctors,seoDetails});
+    res.render('index', {body: "",baseUrl,posts,websiteID,testimonial,specialization,banners,popupbanners,doctors,seoDetails});
 });
 
 
@@ -80,7 +82,7 @@ app.get('/about', async (req, res) => {
 
 
 app.get('/services', async (req, res) => {
-  
+    const specialization = await getspecialization();
     const baseUrl = req.protocol + '://' + req.get('Host');
     const testimonial = await gettestimonial();
     const seoDetails = {
@@ -91,7 +93,7 @@ app.get('/services', async (req, res) => {
         canonical:"",
     } 
    
-    res.render('services', {body: "", seoDetails,testimonial});
+    res.render('services', {body: "",specialization, seoDetails,testimonial});
 });
 
 
@@ -182,7 +184,6 @@ app.get('/appointment', async (req, res) => {
     const testimonial = await gettestimonial();
     const doctors = await getdoctors();
     const specialization = await getspecialization();
-    console.log("Doctors Data:", doctors);
     const seoDetails = {
         title: "",
         metaDescription: "",
@@ -194,13 +195,14 @@ app.get('/appointment', async (req, res) => {
     res.render('appointmentpage', {body: "",websiteID,API_BASE_URL,WEBSITE_ID_KEY,baseUrl,doctors,specialization,WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS,testimonial, seoDetails});
 });
 
-app.get('/service-detail', async (req, res) => {  
-    // const { serviceId } = req.params;
+app.get('/service/:service', async (req, res) => {  
+    const { service } = req.params;
     const baseUrl = req.protocol + '://' + req.get('Host');
     const websiteID = await getWebsiteID();  
-    
-
-
+    const servicedetail = await getspecializationdetails(service);
+    const specialized = await getdoctorsbyspecailization(service);
+    const specialization = await getspecialization();
+console.log("specialization :",specialization )
     const seoDetails = {
         title: ``,
         metaDescription: ``,
@@ -208,7 +210,7 @@ app.get('/service-detail', async (req, res) => {
         keywords: ``,
         canonical: ``,
     };
-    res.render('service-detail', { seoDetails, websiteID, API_BASE_URL, WEBSITE_ID_KEY });  // Pass serviceId to the detailed.ejs page
+    res.render('service-detail', { seoDetails,specialization,specialized,servicedetail, websiteID, API_BASE_URL, WEBSITE_ID_KEY });  // Pass serviceId to the detailed.ejs page
 });
 
 app.get('/gallery', async (req, res) => {

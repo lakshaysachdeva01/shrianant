@@ -292,91 +292,122 @@
     </div>
 </section>
 
-
-<section class="content-inner-1" style="padding-top:100px !important; ">
-    <div class="container">
-        <div class="section-head style-1 m-b30 row align-items-end">
-            <div class="col-lg-7 col-md-8 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
-                <h2 class="title m-b0">Stay Informed with <br> Our Latest Health Blogs</h2>
-            </div>
-            <div class="col-lg-5 col-md-4 text-md-end d-none d-md-block wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
-                <a href="blog-gri" class="btn btn-icon btn-primary btn-shadow">
-                    View All
-                    <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
-                </a>
-            </div> 
-        </div>
-        <div class="row g-20">
-            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
-                <div class="dz-card style-2 dz-card-overlay overlay-none" style="background-image: url(images/blog/overlay/img1.webp);">
-                    <div class="dz-info">
-                        <div class="content-half">
-                            <div class="post-date">12 Jan 2024</div>
-                            <h3 class="dz-title">
-                                <a href="blog-details.html">The Art of Managing Business and Patient Care</a>
-                            </h3>
-                        </div>
-                        <div class="bottom-info">
-                            <a href="blog-details.html" class="btn btn-icon btn-lg btn-primary btn-shadow">
-                                Read More
-                                <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-5 col-lg-8 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
-                <div class="dz-card style-2 dz-card-overlay" style="background-image: url(images/blog/overlay/large/img1.webp);">
-                    <div class="dz-info">
-                        <div class="post-date">12 Jan 2024</div>
-                        <div class="bottom-info">
-                            <h3 class="dz-title">
-                                <a href="blog-details.html">The Art of Managing Business and Patient Care</a>
-                            </h3>
-                            <a href="blog-details.html" class="btn btn-square btn-white rounded-circle">
-                                <i class="feather icon-arrow-up-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-12">
-                <div class="row g-20">
-                    <div class="col-xl-12 col-md-6 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
-                        <div class="dz-card style-2 dz-card-overlay card-sm no-image">
-                            <div class="dz-info">
-                                <div class="post-date">12 Jan 2024</div>
-                                <h3 class="dz-title">
-                                    <a href="blog-details.html">Strategies for Balancing Business Demands with Optimal</a>
-                                </h3>
-                                <div class="bottom-info ms-auto">
-                                    <a href="blog-details.html" class="btn btn-square btn-white rounded-circle">
-                                        <i class="feather icon-arrow-up-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-12 col-md-6 wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="0.8s">
-                        <div class="dz-card style-2 dz-card-overlay card-sm" style="background-image: url(images/blog/overlay/small/img1.webp);">
-                            <div class="dz-info">
-                                <div class="post-date">12 Jan 2024</div>
-                                <div class="bottom-info">
-                                    <h3 class="dz-title">
-                                        <a href="blog-details.html">Effective Healthcare Tips</a>
-                                    </h3>
-                                    <a href="blog-details.html" class="btn btn-square btn-white rounded-circle">
-                                        <i class="feather icon-arrow-up-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<% if (posts && posts.length > 0) { 
+    const latestPosts = posts.slice(0, 4); 
+%>
+<section class="content-inner-1" style="padding-top:100px !important;">
+  <div class="container">
+    <div class="section-head style-1 m-b30 row align-items-end">
+      <div class="col-lg-7 col-md-8 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
+        <h2 class="title m-b0">Stay Informed with <br> Our Latest Health Blogs</h2>
+      </div>
+      <div class="col-lg-5 col-md-4 text-md-end d-none d-md-block wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
+        <a href="/blog-gri" class="btn btn-icon btn-primary btn-shadow">
+          View All
+          <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
+        </a>
+      </div>
     </div>
+
+    <div class="row g-20">
+      <!-- First Blog Card -->
+      <% if (latestPosts[0]) { 
+          const post = latestPosts[0]; %>
+      <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
+        <div class="dz-card style-2 dz-card-overlay overlay-none" style="background-image: url(<%= process.env.S3_BASE_URL + post.coverImage %>);">
+          <div class="dz-info">
+            <div class="content-half">
+              <div class="post-date"><%= post.postDate %></div>
+              <h3 class="dz-title">
+                <a href="/blog/<%= post.slug %>"><%= post.title %></a>
+              </h3>
+            </div>
+            <div class="bottom-info">
+              <a href="/blog/<%= post.slug %>" class="btn btn-icon btn-lg btn-primary btn-shadow">
+                Read More
+                <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- Second Blog Card -->
+      <% if (latestPosts[1]) {
+          const post = latestPosts[1]; %>
+      <div class="col-xl-5 col-lg-8 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
+        <div class="dz-card style-2 dz-card-overlay" style="background-image: url(<%= process.env.S3_BASE_URL + post.coverImage %>);">
+          <div class="dz-info">
+            <div class="post-date"><%= post.postDate %></div>
+            <div class="bottom-info">
+              <h3 class="dz-title">
+                <a href="/blog/<%= post.slug %>"><%= post.title %></a>
+              </h3>
+              <a href="/blog/<%= post.slug %>" class="btn btn-square btn-white rounded-circle">
+                <i class="feather icon-arrow-up-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- Third & Fourth Blog Cards -->
+     <!-- Third & Fourth Blog Cards -->
+<div class="col-xl-3 col-lg-12">
+    <div class="row g-20">
+  
+      <% if (latestPosts[2]) {
+          const post = latestPosts[2];
+          const truncatedTitle = post.title.length > 70 ? post.title.slice(0, 70) + '...' : post.title;
+      %>
+      <div class="col-xl-12 col-md-6 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
+        <div class="dz-card style-2 dz-card-overlay card-sm" style="background-image: url(<%= process.env.S3_BASE_URL + post.coverImage %>);">
+          <div class="dz-info">
+            <div class="post-date"><%= post.postDate %></div>
+            <h3 class="dz-title">
+              <a href="/blog/<%= post.slug %>"><%= truncatedTitle %></a>
+            </h3>
+            <div class="bottom-info ms-auto">
+              <a href="/blog/<%= post.slug %>" class="btn btn-square btn-white rounded-circle">
+                <i class="feather icon-arrow-up-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+  
+      <% if (latestPosts[3]) {
+          const post = latestPosts[3];
+          const truncatedTitle = post.title.length > 70 ? post.title.slice(0, 70) + '...' : post.title;
+      %>
+      <div class="col-xl-12 col-md-6 wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="0.8s">
+        <div class="dz-card style-2 dz-card-overlay card-sm" style="background-image: url(<%= process.env.S3_BASE_URL + post.coverImage %>);">
+          <div class="dz-info">
+            <div class="post-date"><%= post.postDate %></div>
+            <div class="bottom-info">
+              <h3 class="dz-title">
+                <a href="/blog/<%= post.slug %>"><%= truncatedTitle %></a>
+              </h3>
+              <a href="/blog/<%= post.slug %>" class="btn btn-square btn-white rounded-circle">
+                <i class="feather icon-arrow-up-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+  
+    </div>
+  </div>
+  
+    </div>
+  </div>
 </section>
+<% } %>
+
 
 
 <section class="content-wrapper style-4">

@@ -1,7 +1,34 @@
 <%- include('header') %>
+<style>
+   .description{
+    color: #323232 !important;
+   }
+.dz-media{
+    max-height: 300px;
+}
+   li::marker{
+    width: 2px !important;
+   }
+    .description li {
+        list-style: disc !important;
+        font-weight: 400;
+        line-height: 40px !important;
+        color: #323232 !important;
+    }
+    .description td {
+        list-style: disc !important;
+        font-weight: 400;
+        line-height: 32px !important;
+        color: #323232 !important;
+    }
 
+    .description ul{
+        margin: 10px 0;
+    }
+    
+</style>
 
-<main class="page-content">
+<main class="page-content" >
 	
     <div class="dz-bnr-inr dz-banner-dark overlay-secondary-middle dz-bnr-inr-md" style="background-image:url(/assets/images/banner/bnr2.webp);">
 <div class="container">
@@ -48,7 +75,7 @@
 </ul>
 </div>
 
-<section class="content-inner service-single">
+<section class="content-inner service-single" style="margin-top: 80px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 single-inner order-lg-1">
@@ -56,11 +83,12 @@
                     <img src="/assets/images/blog/grid/img2.webp" alt="" class="object-fit-cover">
                 </div>
                 <div class="content-item wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.7s">
-                    <h2>Angioplasty</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including.</p>
+                    <div class="description">
+                      <%- servicedetail.description %>
+                    </div>
                 </div>
-                <div class="content-item wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
+              
+                <!-- <div class="content-item wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
                     <h3>Steps in Angioplasty</h3>
                     <ul class="list-check text-secondary grid-2 m-b30">
                         <li>Comprehensive Specialties</li>
@@ -74,151 +102,82 @@
                         <li>Multidisciplinary Team</li>
                         <li>Health Information Technology</li>
                     </ul>
-                </div>
+                </div> -->
                 <div class="content-item wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.7s">
                     <h3>Available Doctors Under Surgery</h3>
                     <div class="row">
-                        <div class="col-xxl-4 col-sm-6">
-                            <div class="dz-team style-1 active box-hover">
-                                <div class="dz-media">
-                                    <img src="/assets/images/team/img1.webp" alt="/">
-                                    <a href="appointment.html" class="btn btn-primary">
-                                        <i class="feather icon-calendar m-r5"></i>
-                                        Appointment Now
-                                    </a>
-                                </div>
-                                <div class="dz-content">
-                                    <div class="clearfix">
-                                        <h3 class="dz-name"><a href="team-detail.html">Nashid Martines</a></h3>
-                                        <span class="dz-position">Cardiac Surgery</span>
-                                    </div>
-                                    <a href="team-detail.html" class="btn btn-square btn-secondary">
-                                        <i class="feather icon-arrow-right"></i>
-                                    </a>
-                                </div>
-                                <ul class="dz-social">
-                                    <li>
-                                        <a href="https://www.linkedin.com" target="_blank">
-                                            <i class="fa-brands fa-linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.instagram.com" target="_blank">
-                                            <i class="fa-brands fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.facebook.com" target="_blank">
-                                            <i class="fa-brands fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://twitter.com" target="_blank">
-                                            <i class="fa-brands fa-x-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.youtube.com" target="_blank">
-                                            <i class="fa-brands fa-youtube"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <% specialized.forEach(item => { %>
                         <div class="col-xxl-4 col-sm-6">
                             <div class="dz-team style-1 box-hover">
                                 <div class="dz-media">
-                                    <img src="/assets/images/team/img2.webp" alt="/">
-                                    <a href="appointment.html" class="btn btn-primary">
+                                    <div id="doctor-image-<%= item._id %>" 
+                                        style="width: 100%;max-height:300px; height: 100%; overflow: hidden; background: white; display: flex; align-items: center; justify-content: center;">
+                                     <img 
+                                       src="<%= process.env.S3_BASE_URL + item.profilePicture %>" 
+                                       alt="<%= item.fullName %>" 
+                                       style="width: 100%; height: 100%; object-fit: cover;" 
+                                       onerror="showInitialsFallback(this, '<%= item._id %>', '<%= item.fullName %>')"
+                                     >
+                                   </div>
+                                   
+                                   <script>
+                                     function showInitialsFallback(imgEl, id, name) {
+                                       const container = document.getElementById(`doctor-image-${id}`);
+                                       if (!container) return;
+                                   
+                                       // Remove failed image
+                                       imgEl.remove();
+                                   
+                                       // Get initials
+                                       const initials = getInitials(name);
+                                       if (!initials) return;
+                                   
+                                       // Create fallback div
+                                       const fallbackDiv = document.createElement('div');
+                                       fallbackDiv.textContent = initials;
+                                       fallbackDiv.style.cssText = `
+                                       
+                                         display: flex;
+                                         align-items: center;
+                                         justify-content: center;
+                                         font-weight: semibold;
+                                         height:100px;
+                                         width:100px;
+                                         border-radius:50%;
+                                         background:#ecf5fb;
+                                         font-size: 38px;
+                                         color: #2ab0e5;
+                                       `;
+                                       container.appendChild(fallbackDiv);
+                                     }
+                                   
+                                     function getInitials(name) {
+                                       if (!name) return '';
+                                       const words = name.trim().split(/\s+/);
+                                       const first = words[0]?.charAt(0).toUpperCase() || '';
+                                       const second = words[1]?.charAt(0).toUpperCase() || '';
+                                       return first + (second || '');
+                                     }
+                                   </script>
+                                   
+                                    <a href="/appointment" class="btn btn-primary">
                                         <i class="feather icon-calendar m-r5"></i>
                                         Appointment Now
                                     </a>
                                 </div>
                                 <div class="dz-content">
                                     <div class="clearfix">
-                                        <h3 class="dz-name"><a href="team-detail.html">Danial Frankie</a></h3>
-                                        <span class="dz-position">Pediatric Clinic</span>
+                                        <h3 class="dz-name"><a href="/team-details/<%= item._id %>"><%= item.fullName %></a></h3>
+                                        <span class="dz-position"><%= item.specializations.map(tag => tag.title).join(' , ') %> %></span>
                                     </div>
-                                    <a href="team-detail.html" class="btn btn-square btn-secondary">
+                                    <a href="/team-details/<%= item._id %>" class="btn btn-square btn-secondary">
                                         <i class="feather icon-arrow-right"></i>
                                     </a>
                                 </div>
-                                <ul class="dz-social">
-                                    <li>
-                                        <a href="https://www.linkedin.com" target="_blank">
-                                            <i class="fa-brands fa-linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.instagram.com" target="_blank">
-                                            <i class="fa-brands fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.facebook.com" target="_blank">
-                                            <i class="fa-brands fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://twitter.com" target="_blank">
-                                            <i class="fa-brands fa-x-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.youtube.com" target="_blank">
-                                            <i class="fa-brands fa-youtube"></i>
-                                        </a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
-                        <div class="col-xxl-4 col-sm-6">
-                            <div class="dz-team style-1 box-hover">
-                                <div class="dz-media">
-                                    <img src="/assets/images/team/img3.webp" alt="/">
-                                    <a href="appointment.html" class="btn btn-primary">
-                                        <i class="feather icon-calendar m-r5"></i>
-                                        Appointment Now
-                                    </a>
-                                </div>
-                                <div class="dz-content">
-                                    <div class="clearfix">
-                                        <h3 class="dz-name"><a href="team-detail.html">Rihana Roy</a></h3>
-                                        <span class="dz-position">Gynecology</span>
-                                    </div>
-                                    <a href="team-detail.html" class="btn btn-square btn-secondary">
-                                        <i class="feather icon-arrow-right"></i>
-                                    </a>
-                                </div>
-                                <ul class="dz-social">
-                                    <li>
-                                        <a href="https://www.linkedin.com" target="_blank">
-                                            <i class="fa-brands fa-linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.instagram.com" target="_blank">
-                                            <i class="fa-brands fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.facebook.com" target="_blank">
-                                            <i class="fa-brands fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://twitter.com" target="_blank">
-                                            <i class="fa-brands fa-x-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.youtube.com" target="_blank">
-                                            <i class="fa-brands fa-youtube"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <% }) %>
+                       
                     </div>
                 </div>
                 <div class="content-item wow fadeInUp" data-wow-delay="0.5s" data-wow-duration="0.7s">
@@ -282,14 +241,9 @@
                             <h4 class="title">All Services</h4>
                         </div>
                         <ul>
-                            <li class="active"><a href="service-detail.html">Angioplasty</a></li>
-                            <li><a href="service-detail.html">Cardiology</a></li>
-                            <li><a href="service-detail.html">Dental</a></li>
-                            <li><a href="service-detail.html">Endocrinology</a></li>
-                            <li><a href="service-detail.html">Eye Care</a></li>
-                            <li><a href="service-detail.html">Neurology</a></li>
-                            <li><a href="service-detail.html">Orthopedics</a></li>
-                            <li><a href="service-detail.html">RMI</a></li>
+                            <% specialization.forEach(item => { %>
+                            <li ><a href="/service/<%= item.title %>"><%= item.title %></a></li>
+                            <% })  %>
                         </ul>
                     </div>
                     <div class="widget_contact" style="background-image:url(images/background/bg3.png); " data-wow-delay="0.4s" data-wow-duration="0.7s">

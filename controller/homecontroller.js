@@ -82,6 +82,21 @@ exports.getspecialization = async(req, res) => {
 };
 
 
+exports.getspecializationdetails = async(service) => {  
+    const websiteID = await getWebsiteID(); 
+     const data = await fetchData(`${API_BASE_URL}/website/specialization/get-all-specializations/${websiteID}`);
+     // If data exists, filter the doctor by the provided id
+     if (data) {
+        const specialization = data.find(item => item.title === service); // Assuming `_id` is the field you're comparing with
+        return specialization || null; // Return the doctor or null if not found
+    }
+    
+    return null;
+};
+
+
+
+
 exports.getdoctors = async (req, res) => {  
     const websiteID = await getWebsiteID(); 
     const data = await fetchData(`${API_BASE_URL}/website/doctor-management/get-all-doctors/${websiteID}`);
@@ -90,8 +105,25 @@ exports.getdoctors = async (req, res) => {
         return data.reverse(); // Ensures LIFO order
     }
 
-    return data || null;
+    return  null;
 };
+
+exports.getdoctorsbyspecailization = async (service) => {  
+    const websiteID = await getWebsiteID(); 
+    const data = await fetchData(`${API_BASE_URL}/website/doctor-management/get-all-doctors/${websiteID}`);
+    
+    if (data) {
+        const doctors = data.filter(doctor =>
+            Array.isArray(doctor.specializations) &&
+            doctor.specializations.some(spec => spec.title === service)
+        );
+        return doctors;
+    }
+
+    return [];
+};
+
+
 exports.getdoctordetails = async (id) => {  
     const websiteID = await getWebsiteID(); 
     const data = await fetchData(`${API_BASE_URL}/website/doctor-management/get-all-doctors/${websiteID}`);

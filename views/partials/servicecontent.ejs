@@ -1,4 +1,5 @@
 <div class="row">
+    <% specialization.forEach(item => { %>
     <div class="col-xl-3 col-md-6 m-b30 wow department-option fadeInUp" data-wow-delay="0.1s" data-wow-duration="0.8s"  data-department-id="angioplasty"
     data-name="angioplasty">
         <div class="icon-bx-wraper style-3 box-hover">
@@ -28,19 +29,20 @@
                     </svg>
                 </span>
                 <div class="icon-content">
-                    <h3 class="dz-title">Angioplasty</h3>
-                    <p>It is a long established fact that a reader will be distracted by the readable content.</p>
+                    <h3 class="dz-title"><%= item.title %></h3>
+                    <p><%= item.subTitle %></p>
                 </div>
             </div>
             <div class="icon-bx-footer">
                 <span class="text-badge"><i class="fa fa-circle text-primary"></i> 25+ Doctor</span>
-                <a href="/service-detail" class="btn btn-square btn-primary rounded-circle">
+                <a href="/service/<%= item.title %>" class="btn btn-square btn-primary rounded-circle">
                     <i class="feather icon-arrow-up-right"></i>
                 </a>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 m-b30 wow department-option fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s"  data-department-id="cardiology"
+    <% }) %>
+    <!-- <div class="col-xl-3 col-md-6 m-b30 wow department-option fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s"  data-department-id="cardiology"
     data-name="Cardiology">
         <div class="icon-bx-wraper style-3 active box-hover">
             <div class="icon-bx-head">
@@ -329,5 +331,5 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

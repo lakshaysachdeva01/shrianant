@@ -1,4 +1,5 @@
 <% if (popupbanners.length > 0) { %>
+    <!-- Popup banner code remains unchanged -->
     <div id="popback" onclick="closepopup()"></div>
     <div id="popup-banner">
         <button id="close-popup">&times;</button>
@@ -31,194 +32,315 @@
     </div>
 <% } %>
 
+<!-- Hero Banner Section with Swiper -->
+<div class="hero-banner style-1">
+    <!-- Swiper Container for Background Images -->
+    <div class="hero-swiper-container">
+        <div class="swiper hero-swiper">
+            <div class="swiper-wrapper">
+                <% banners.forEach(slide => { %>
+                    <div class="swiper-slide">
+                        <img src="<%= process.env.S3_BASE_URL + slide.bannerImage.webView %>" alt="Hero Banner" class="hero-background-image">
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // Check if banners exist
+        // Initialize Hero Banner Swiper
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize Hero Banner Swiper
+            const heroSwiper = document.querySelector('.hero-swiper');
+            if (heroSwiper) {
+                new Swiper(heroSwiper, {
+                    loop: true,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: true, // Changed to true to prevent conflict
+                    },
+                    effect: 'fade',
+                    speed: 1000,
+                    allowTouchMove: true,
+                    grabCursor: true,
+                    // Add touch events configuration
+                    touchEventsTarget: 'container',
+                    touchRatio: 1,
+                    touchAngle: 45,
+                    simulateTouch: true,
+                    // Add navigation
+                    navigation: {
+                        nextEl: '.hero-swiper-button-next',
+                        prevEl: '.hero-swiper-button-prev',
+                    },
+                    // Add pagination
+                    pagination: {
+                        el: '.hero-swiper-pagination',
+                        clickable: true,
+                        dynamicBullets: true,
+                    },
+                    // Add keyboard control
+                    keyboard: {
+                        enabled: true,
+                        onlyInViewport: true,
+                    },
+                    // Add mousewheel control
+                    mousewheel: {
+                        forceToAxis: true,
+                    },
+                    // Ensure swiping works properly
+                    on: {
+                        init: function() {
+                            this.el.addEventListener('mouseenter', () => {
+                                this.autoplay.stop();
+                            });
+                            this.el.addEventListener('mouseleave', () => {
+                                this.autoplay.start();
+                            });
+                        },
+                        touchStart: function() {
+                            this.autoplay.stop();
+                        },
+                        touchEnd: function() {
+                            this.autoplay.start();
+                        }
+                    }
+                });
+            }
+
+        // Initialize Additional Banners Swiper
+        if (document.getElementById('desktop-additional-banners')) {
+            new Swiper('#desktop-additional-banners', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                speed: 700,
+                effect: 'slide',
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        }
+        
+        if (document.getElementById('mobile-additional-banners')) {
+            new Swiper('#mobile-additional-banners', {
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                speed: 700,
+                effect: 'slide',
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        }
+
+        // Your existing popup banner initialization code
         const bannersExist = document.querySelectorAll('#popup-banner .swiper-slide').length > 0;
-    
-        if (!bannersExist) {
-            return; // No banners, exit the function
-        }
-    
-        // Check if the popup was already shown in this session
+        if (!bannersExist) return;
+
         const popupShown = sessionStorage.getItem('popbackShown');
-        if (popupShown) {
-            return;
-        }
-    
-        // Show the popup and overlay
+        if (popupShown) return;
+
         const popupBanner = document.getElementById('popup-banner');
         const popback = document.getElementById('popback');
-    
         popupBanner.style.display = 'block';
         popback.style.display = 'block';
         document.body.style.overflow = 'hidden';
-    
-        // Set session storage to prevent reappearing
         sessionStorage.setItem('popbackShown', 'true');
-    
-        // Initialize Swiper for Desktop Banner
-        const desktopSwiper = new Swiper('#desktop-popup-banners', {
-            loop: true, // Infinite loop
-            autoplay: {
-                delay: 5000, // 5 seconds per slide
-                disableOnInteraction: false, // Autoplay keeps going even after user interaction
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            speed: 700, // Transition speed (milliseconds)
-            effect: 'slide', // Slide effect for smooth transitions
-            // Add a small delay between iterations
-            on: {
-                slideChangeTransitionEnd: function () {
-                    this.autoplay.start(); // Ensures autoplay keeps running
-                }
-            }
+
+        new Swiper('#desktop-popup-banners', {
+            loop: true,
+            autoplay: { delay: 5000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: false,
+            speed: 700,
+            effect: 'slide',
+            on: { slideChangeTransitionEnd: function() { this.autoplay.start(); } }
         });
-    
-        // Initialize Swiper for Mobile Banner
-        const mobileSwiper = new Swiper('#mobile-popup-banners', {
-            loop: true, // Infinite loop
-            autoplay: {
-                delay: 3000, // 3 seconds per slide
-                disableOnInteraction: false, // Autoplay keeps going even after user interaction
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            speed: 700, // Transition speed (milliseconds)
-            effect: 'slide', // Slide effect for smooth transitions
-            // Add a small delay between iterations
-            on: {
-                slideChangeTransitionEnd: function () {
-                    this.autoplay.start(); // Ensures autoplay keeps running
-                }
-            }
+
+        new Swiper('#mobile-popup-banners', {
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: false,
+            speed: 700,
+            effect: 'slide',
+            on: { slideChangeTransitionEnd: function() { this.autoplay.start(); } }
         });
-    
-        // Add event listener to close button
+
         document.getElementById('close-popup').addEventListener('click', closepopup);
-    
-        // Add event listener to close on overlay click
         popback.addEventListener('click', closepopup);
     });
     
     function closepopup() {
         const popupBanner = document.getElementById('popup-banner');
         const popback = document.getElementById('popback');
-    
         popupBanner.style.display = 'none';
         popback.style.display = 'none';
         document.body.style.overflow = 'visible';
-    
-        // Set session storage to remember that popup was closed for the session
         sessionStorage.setItem('popbackShown', 'true');
     }
-    
 </script>
 
+<style>
+    /* Hero Banner Swiper Styles */
+    .hero-banner.style-1 {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-swiper-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
 
-<div class="hero-banner style-1" style="background-image: url(/assets/images/hero-banner/bg1.webp); background-size: cover;">
-    <div class="container">
-        <div class="inner-wrapper">
-            <span class="text-vertical text-secondary">24/7 EMERGENCY SERVICE</span>
-            <div class="row align-items-end h-100">
-                <div class="col-lg-6 align-self-center">
-                    <div class="hero-content">
-                        <h1 class="title wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">Medical & Health Care <span class="text-primary">Services</span> <img src="/assets/images/hero-banner/line.png" alt=""></h1>
-                        <p class="text wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">Your health is our top priority. Schedule an appointment with us today</p>
-                        <a href="/appointment" class="btn btn-lg btn-icon btn-primary m-r20 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
-                            Appointment
-                            <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
-                        </a>
-                        <a href="/contact" class="btn btn-lg btn-icon btn-secondary wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
-                            Contact Us
-                            <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.8s" data-wow-duration="0.8s">
-                    <div class="hero-thumbnail" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-                        <img class="thumbnail" src="/assets/images/hero-banner/img1.webp" alt="">
-                        <div class="circle-wrapper">
-                            <span class="circle1"></span>
-                            <span class="circle2"></span>
-                            <span class="circle3"></span>
-                            
-                            <div class="item1">
-                                <img src="/assets/images/hero-banner/heart.png" alt="">
-                            </div>
-                        </div>
-                        <div class="item2" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-                            <div class="info-widget style-1 move-3">
-                                <div class="avatar-group">
-                                    <img class="avatar rounded-circle avatar-sm border border-white border-2" src="/assets/images/avatar/small/avatar1.webp" alt="">
-                                    <img class="avatar rounded-circle avatar-sm border border-white border-2" src="/assets/images/avatar/small/avatar2.webp" alt="">
-                                    <img class="avatar rounded-circle avatar-sm border border-white border-2" src="/assets/images/avatar/small/avatar3.webp" alt="">
-                                    <img class="avatar rounded-circle avatar-sm border border-white border-2" src="/assets/images/avatar/small/avatar4.webp" alt="">
-                                </div>
-                                <div class="clearfix ms-2">
-                                    <span class="number text-primary">150k</span>
-                                    <span>Patient recovers</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item3" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-                            <div class="info-widget style-2 move-2">
-                                <div id="progressChart"></div>
-                                <div class="widget-content">
-                                    <h6 class="mb-0">Successfully diagnosis</h6>
-                                    <a href="team-detail.html" class="btn btn-square btn-outline-light text-primary rounded-circle">
-                                        <i class="feather icon-arrow-up-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item4" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-                            <div class="info-widget style-3 move-1">
-                                <div class="widget-head">
-                                    <div class="widget-media">
-                                        <img src="/assets/images/avatar/small/avatar5.webp" alt="">
-                                    </div>
-                                    <div class="widget-content">
-                                        <h6 class="title">Dr. Natali jackson</h6>
-                                        <ul class="star-list">
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <p>“It is a long established fact that a reader will be distracted by the readable content”</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item5" data-bottom-top="transform: translateY(-30px)" data-top-bottom="transform: translateY(30px)">
-                <div class="info-widget style-4 move-4">
-                    <div class="widget-media">
-                        <img src="/assets/images/avatar/small/avatar6.webp" alt="">
-                    </div>
-                    <div class="widget-content">
-                        <h6 class="title">Have a Question?</h6>
-                        <a href="mailto:info@example.com">info@example.com</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    }
+    
+    .hero-swiper {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .hero-background-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    /* Ensure content stays above the swiper */
+    .hero-banner .container {
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Hero Swiper Navigation */
+    .hero-swiper-button-next,
+    .hero-swiper-button-prev {
+        color: white;
+        background: rgba(0,0,0,0.3);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        cursor: pointer;
+    }
+    
+    .hero-swiper-button-next {
+        right: 20px;
+    }
+    
+    .hero-swiper-button-prev {
+        left: 20px;
+    }
+    
+    .hero-swiper-button-next:after,
+    .hero-swiper-button-prev:after {
+        font-size: 20px;
+    }
+    
+    /* Hero Swiper Pagination */
+    .hero-swiper-pagination {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        z-index: 10;
+    }
+    
+    .hero-swiper-pagination .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        background: white;
+        opacity: 0.5;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .hero-swiper-pagination .swiper-pagination-bullet-active {
+        opacity: 1;
+        background: #c55200;
+        transform: scale(1.2);
+    }
+    
+    /* Additional Banners Styles */
+    .additional-banners {
+        margin: 20px 0;
+    }
+    
+    .desktop-additional-banner {
+        display: block;
+    }
+    
+    .mobile-additional-banner {
+        display: none;
+    }
+    
+    .swiper-slide img {
+        width: 100%;
+        height: auto;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .desktop-additional-banner {
+            display: none;
+        }
+        
+        .mobile-additional-banner {
+            display: block;
+        }
+        
+        /* Adjust hero swiper navigation for mobile */
+        .hero-swiper-button-next,
+        .hero-swiper-button-prev {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .hero-swiper-button-next:after,
+        .hero-swiper-button-prev:after {
+            font-size: 16px;
+        }
+    }
+    
+    /* Swiper pagination */
+    .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        background: #fff;
+        opacity: 0.5;
+    }
+    
+    .swiper-pagination-bullet-active {
+        opacity: 1;
+        background: #c55200;
+    }
+</style>

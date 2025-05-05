@@ -1,5 +1,11 @@
 
 
+
+/* For WebKit-based browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  display: none !important;
+}
+
 .icon-bx-wraper.style-1 .icon-bx .feather{
   font-size: 24px !important;
 }
@@ -240,3 +246,4 @@ margin-top: 20px;
 .shop-card:hover .dz-media img{
   filter: none;
 }
+
