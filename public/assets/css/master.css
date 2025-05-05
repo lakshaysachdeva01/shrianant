@@ -50,15 +50,25 @@ margin: 10px ;
   background-color: #000000;
   color: #fff;}
 
- .sticky-header .logo-header{
+ .logo,.hide{
   display: none !important;
  }
-  @media (max-width:990px) {
-    .sticky-header .logo-header{
+ 
+   .show .hide{
       display: block !important;
      }
-    
-  }
+     @media (max-width:990px) {
+      .logo{
+        display: block !important;
+      }
+      .site-header .main-bar{
+        background: white !important;
+       
+      }
+      
+     }
+
+
   @media (max-width:768px) {
     #step-content-1  .formlayout{
       flex-direction: column !important;
@@ -78,6 +88,12 @@ margin: 10px ;
   }
   }
 
+  @media (max-width:576px) {
+   .logo{
+    padding-top: 20px !important;
+   }
+  }
+  
   input:invalid {
     border: none !important;
     outline: none !important;
@@ -85,4 +101,142 @@ margin: 10px ;
   .form-control, .is-invalid {
     border: none !important;
     outline: none !important;
+}
+
+.show .navbar-nav{
+  width: 100% !important;
+}
+
+
+
+
+
+#popback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  z-index: 99999;
+}
+
+/* Popup banner container */
+#popup-banner {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+
+padding: 20px;
+
+display: none;
+z-index: 100000;
+height: 600px;
+width: 600px;
+
+}
+
+@media (max-width:800px) {
+  #popup-banner{
+    height: auto;
+width: 90%;
+  }
+  #navbar2 .header-nav.w3menu .nav > li.sub-menu-down > a:after {
+   color: white;
+  }
+}
+.menu-btn{
+  right: 25px;
+    position: absolute;
+   top: 25%;
+}
+/* Popup content styling */
+#popup-content {
+text-align: center;
+font-family: Arial, sans-serif;
+}
+
+/* Desktop and Mobile Banners */
+#popup-banner .swiper-container img {
+width: 100%;
+height: 100%;
+
+}
+#popup-banner .swiper-slide{
+  
+  width: 100% !important;
+  margin-right: 0 !important;
+}
+
+/* Close button styling */
+#close-popup {
+position: absolute;
+top: 0px;
+right: -21px;
+background: white;
+color: rgb(59, 59, 59);
+border: none;
+
+width: 40px;
+height: 40px;
+font-size: 28px;
+line-height: 30px;
+text-align: center;
+cursor: pointer;
+z-index: 110000; /* Ensure it stays on top of the popup */
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+
+#desktop-popup-banners{
+  overflow: hidden;
+display: block;
+}
+#mobile-popup-banners{
+display: none;
+
+}
+
+@media (max-width:500px) {
+#desktop-popup-banners{
+display: none;
+}
+#mobile-popup-banners{
+display: block;
+overflow: hidden;
+}
+#close-popup{
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 15px;
+  right: -5.56px;
+}
+}
+
+
+/* Banner layout spacing */
+#popup-banner .desktop-popup-banner,
+#popup-banner .mobile-popup-banner {
+margin-top: 20px;
+}
+
+
+#masonry .btn.btn-white:active,#masonry .btn.btn-white:focus,#masonry .btn.btn-white:hover{
+  border-color: #F46700 !important;
+    background-color: #F46700 !important;
+    filter: grayscale(10px);
+}
+
+.shop-card .dz-media img{
+  filter: brightness(0.4);
+}
+
+.shop-card:hover .dz-media img{
+  filter: none;
 }

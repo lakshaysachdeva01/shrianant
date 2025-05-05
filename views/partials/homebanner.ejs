@@ -1,3 +1,134 @@
+<% if (popupbanners.length > 0) { %>
+    <div id="popback" onclick="closepopup()"></div>
+    <div id="popup-banner">
+        <button id="close-popup">&times;</button>
+  
+        <!-- Desktop Popup Banner -->
+        <div class="desktop-popup-banner">
+            <div class="swiper-container desktop-banner" id="desktop-popup-banners">
+                <div class="swiper-wrapper">
+                    <% popupbanners.forEach(slide => { %>
+                        <div class="swiper-slide bgimg">
+                            <img src="<%= process.env.S3_BASE_URL + slide.bannerImage.webView %>" alt=""/>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+  
+        <!-- Mobile Popup Banner -->
+        <div class="mobile-popup-banner">
+            <div class="swiper-container mobile-banner" id="mobile-popup-banners">
+                <div class="swiper-wrapper">
+                    <% popupbanners.forEach(slide => { %>
+                        <div class="swiper-slide bgimg">
+                            <img src="<%= process.env.S3_BASE_URL + slide.bannerImage.mobileView %>" alt=""/>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Check if banners exist
+        const bannersExist = document.querySelectorAll('#popup-banner .swiper-slide').length > 0;
+    
+        if (!bannersExist) {
+            return; // No banners, exit the function
+        }
+    
+        // Check if the popup was already shown in this session
+        const popupShown = sessionStorage.getItem('popbackShown');
+        if (popupShown) {
+            return;
+        }
+    
+        // Show the popup and overlay
+        const popupBanner = document.getElementById('popup-banner');
+        const popback = document.getElementById('popback');
+    
+        popupBanner.style.display = 'block';
+        popback.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    
+        // Set session storage to prevent reappearing
+        sessionStorage.setItem('popbackShown', 'true');
+    
+        // Initialize Swiper for Desktop Banner
+        const desktopSwiper = new Swiper('#desktop-popup-banners', {
+            loop: true, // Infinite loop
+            autoplay: {
+                delay: 5000, // 5 seconds per slide
+                disableOnInteraction: false, // Autoplay keeps going even after user interaction
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            speed: 700, // Transition speed (milliseconds)
+            effect: 'slide', // Slide effect for smooth transitions
+            // Add a small delay between iterations
+            on: {
+                slideChangeTransitionEnd: function () {
+                    this.autoplay.start(); // Ensures autoplay keeps running
+                }
+            }
+        });
+    
+        // Initialize Swiper for Mobile Banner
+        const mobileSwiper = new Swiper('#mobile-popup-banners', {
+            loop: true, // Infinite loop
+            autoplay: {
+                delay: 3000, // 3 seconds per slide
+                disableOnInteraction: false, // Autoplay keeps going even after user interaction
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            speed: 700, // Transition speed (milliseconds)
+            effect: 'slide', // Slide effect for smooth transitions
+            // Add a small delay between iterations
+            on: {
+                slideChangeTransitionEnd: function () {
+                    this.autoplay.start(); // Ensures autoplay keeps running
+                }
+            }
+        });
+    
+        // Add event listener to close button
+        document.getElementById('close-popup').addEventListener('click', closepopup);
+    
+        // Add event listener to close on overlay click
+        popback.addEventListener('click', closepopup);
+    });
+    
+    function closepopup() {
+        const popupBanner = document.getElementById('popup-banner');
+        const popback = document.getElementById('popback');
+    
+        popupBanner.style.display = 'none';
+        popback.style.display = 'none';
+        document.body.style.overflow = 'visible';
+    
+        // Set session storage to remember that popup was closed for the session
+        sessionStorage.setItem('popbackShown', 'true');
+    }
+    
+</script>
+
+
 <div class="hero-banner style-1" style="background-image: url(/assets/images/hero-banner/bg1.webp); background-size: cover;">
     <div class="container">
         <div class="inner-wrapper">
@@ -7,11 +138,11 @@
                     <div class="hero-content">
                         <h1 class="title wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">Medical & Health Care <span class="text-primary">Services</span> <img src="/assets/images/hero-banner/line.png" alt=""></h1>
                         <p class="text wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">Your health is our top priority. Schedule an appointment with us today</p>
-                        <a href="appointment.html" class="btn btn-lg btn-icon btn-primary m-r20 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
+                        <a href="/appointment" class="btn btn-lg btn-icon btn-primary m-r20 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
                             Appointment
                             <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
                         </a>
-                        <a href="contact-us.html" class="btn btn-lg btn-icon btn-secondary wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
+                        <a href="/contact" class="btn btn-lg btn-icon btn-secondary wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
                             Contact Us
                             <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
                         </a>

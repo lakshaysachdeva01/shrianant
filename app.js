@@ -1,15 +1,15 @@
 require('dotenv').config();  // Load environment variables from .env file
 const { API_BASE_URL , WEBSITE_ID_KEY} = require('./config/config');
 const { getWebsiteID } = require('./utils/helper');
-const { getdoctordetails,getjobs,getjobdetails, getdoctors ,gettestimonial,getclientle , getspecialization } = require('./controller/homecontroller');
+const { getdoctordetails,getjobs,getHomepopupBanner, getotherjobs,getjobdetails, getdoctors ,gettestimonial,getclientle , getspecialization } = require('./controller/homecontroller');
 const { getBlog,getposts , getevents,getBlogfull , getlatestblogs,getlatestevents, getcasestudy,getlatestcasestudy} = require('./controller/blogcontroller');
 const { getgallery } = require('./controller/gallerycontroller');
-const { CONTACT_ENQUIRY_DYNAMIC_FIELDS_KEYS, WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS} = require('./config/config');
-// const { getlocation,getHomeDesktopBanner  ,getAdBanner,getHomepopupBanner  ,getfilteredlocation  ,CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS , BOOKING_ENQUIRY_DYNAMIC_FIELDS_KEYS} = require('./controller/locationcontroller');
+const { CONTACT_ENQUIRY_DYNAMIC_FIELDS_KEYS, WIZARDFORM_ENQUIRY_DYNAMIC_FIELDS_KEYS, CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS} = require('./config/config');
+// const { getlocation,getHomeDesktopBanner  ,getAdBanner,  ,getfilteredlocation  ,CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS , BOOKING_ENQUIRY_DYNAMIC_FIELDS_KEYS} = require('./controller/locationcontroller');
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 3006;
+const port = 3001;
 const metaLogoPath = "assets/images/icon/metalogo.png";
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
     // const blogs = await getBlog();
     // const gallery= await getgallery();
     // const clients = await getclientle();
-    // const popupbanners = await getHomepopupBanner();
+    const popupbanners = await getHomepopupBanner();
     // const location= await getlocation();
     const seoDetails = {
             title: "",
@@ -40,7 +40,7 @@ app.get('/', async (req, res) => {
     } 
    
    
-    res.render('index', {body: "",baseUrl,websiteID,testimonial,doctors,seoDetails});
+    res.render('index', {body: "",baseUrl,websiteID,testimonial,popupbanners,doctors,seoDetails});
 });
 
 
@@ -115,8 +115,9 @@ app.get('/listing-enquiry/:slug', async (req, res) => {
     const jobs = await getjobs();
     const { slug } = req.params;
       const baseUrl = req.protocol + '://' + req.get('Host');
-      const testimonial = await gettestimonial();
+      const websiteID = await getWebsiteID(); 
       const jobdetails =await getjobdetails(slug);
+      const otherjobs = await getotherjobs(slug);
       const seoDetails = {
           title: "",
           metaDescription: "",
@@ -125,7 +126,7 @@ app.get('/listing-enquiry/:slug', async (req, res) => {
           canonical:"",
       } 
      
-      res.render('listing-enquiry', {body: "", seoDetails,jobs,jobdetails,testimonial});
+      res.render('listing-enquiry', {body: "", websiteID,API_BASE_URL,WEBSITE_ID_KEY,seoDetails,jobs,otherjobs,jobdetails,CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS});
   });
 
 
@@ -175,26 +176,13 @@ app.get('/thankyou', async (req, res) => {
     res.render('thankyou', {body: "", seoDetails});
 });
 
-app.get('/video', async (req, res) => {
-  
-    const baseUrl = req.protocol + '://' + req.get('Host');
-    const seoDetails = {
-        title: "",
-        metaDescription: "",
-        metaImage: `${baseUrl}/${metaLogoPath}`,
-        keywords:"",
-        canonical:"",
-    } 
-   
-    res.render('video', {body: "", seoDetails});
-});
-
 app.get('/appointment', async (req, res) => {
     const baseUrl = req.protocol + '://' + req.get('Host');
     const websiteID = await getWebsiteID(); 
     const testimonial = await gettestimonial();
     const doctors = await getdoctors();
     const specialization = await getspecialization();
+    console.log("Doctors Data:", doctors);
     const seoDetails = {
         title: "",
         metaDescription: "",
@@ -243,11 +231,11 @@ app.get('/gallery', async (req, res) => {
 //     const gallery= await getgallery();
 //     const location= await getlocation();
 //     const seoDetails = {
-//         title: `Gallery of Karyasiddhi Coworking Spaces in ${filter} | Explore Our Workspaces and Amenities`,
-//         metaDescription: "Explore the Karyasiddhi gallery showcasing our coworking spaces . View high-quality images of our flexible workspaces, meeting rooms, private cabins, and more. See how our spaces support productivity and creativity.",
+//         title: ``,
+//         metaDescription: "",
 //         metaImage: `${baseUrl}/${metaLogoPath}`,
-//         keywords:"Karyasiddhi gallery,Coworking spaces  images,Flexible workspaces ,Karyasiddhi coworking photos ",
-//         canonical:`https://www.karyasiddhico.work/gallery/${filter}`,
+//         keywords:"",
+//         canonical:``,
 //     } 
    
 //     res.render('gallery', {body: "", gallery,location,seoDetails});

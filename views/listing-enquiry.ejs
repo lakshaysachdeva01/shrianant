@@ -2,21 +2,220 @@
 
 <main class="page-content">
 	
-    <!-- Blog Large -->
+    <div class="dz-bnr-inr-entry d-table-cell" style="width: 100%;    flex-direction: column;
+    display: flex !important
+; position:relative; text-align:center; margin:50px 0" >
+        <nav aria-label="breadcrumb" class="breadcrumb-row wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item">Job Details</li>
+            </ul>
+        </nav>
+        
+        
+    </div>
    
-    <section class="content-inner-3" style="padding-top: 110px;">
+    <section class="content-inner-3" style="padding-top: 0px;">
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 pe-xl-5 m-b30">
+                    <div class="blog-single style-1" style="margin-bottom: 0 !important;">
+                        <div class="dz-meta" style="margin-bottom: 15px;">
+                          <ul>
+                            <li style="background: rgba(244, 103, 0, .1); color:#F46700" class="post-date"><%= jobdetails.workMode.replace(/_/g, ' ') %></li>
+
+                            <li  style="background: rgba(244, 103, 0, .1); color:#F46700" class="post-date"><%= jobdetails.salary.minimumValue %>-<%= jobdetails.salary.maximumValue %> <%= jobdetails.salary.currency.toUpperCase() %><%= jobdetails.salary.rate.replace(/_/g, ' ').replace(/PER/g, '/') %></li>
+                        </ul>
+                    </div>
+                      </div>
+                 <h3 class="card-title" style="color: #0A3366; font-size:36px; margin:20px 0 30px 0">
+                    <%= jobdetails.title %>
+                 </h3>
+                 <% if (jobdetails.location && jobdetails.location.cities && jobdetails.location.cities.length > 0 && jobdetails.location.cities[0].name) { %>
+                    <a style="color: #0A3366;" href="javascript:void(0);">
+                        <i style="margin-right: 10px;" class="flaticon-placeholder"></i>
+                        <%= jobdetails.location.cities[0].name %>
+                    </a>
+                <% } %>
+                
+                 <div style="color:#566593 !important; line-height:32px;  margin-top: 30px" class="card-text">
+                    <h3 style="color:#0A3366 ; font-size:20px">Description</h3>
+                    <div>
+                    <%- jobdetails.description.replace(/<\/?span[^>]*>/g, '') %>
+                </div>
+                <div class="highlights" >
+                    <h3 style="color:#0A3366 ; font-size:20px; padding: 30px 0;">Highlights</h3>
+                    <div class="col-12" style="display: flex; flex-wrap:wrap; gap:30px">
+                    <div class="col-3">
+                        <div class="icon-bx" style="display: flex;">
+                            <span class="icon-cell">
+                                <img style="width:35px; height:35px;"  src="/assets/images/svg/calendar.svg" alt="icon">
+                            </span>
+                            <div style="padding-left: 15px; display:flex; flex-direction:column; line-height:20px">
+
+                            <span >Category</span><span style="color:#F46700; font-size:14px" ><%= jobdetails.category %> doctor</span></div></div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon-bx" style="display: flex;">
+                                <span class="icon-cell">
+                                    <img style="width:35px; height:35px;"  src="/assets/images/svg/calendar.svg" alt="icon">
+                                </span>
+                                <div style="padding-left: 15px; display:flex; flex-direction:column; line-height:20px">
+    
+                                <span >Work Mode</span><span style="color:#F46700; font-size:14px" ><%= jobdetails.workMode.replace(/_/g, ' ') %></span></div></div>
+                            </div>
+                            <div class="col-3">
+                                <div class="icon-bx" style="display: flex;">
+                                    <span class="icon-cell">
+                                        <img style="width:35px; height:35px;"  src="/assets/images/svg/calendar.svg" alt="icon">
+                                    </span>
+                                    <div style="padding-left: 15px; display:flex; flex-direction:column; line-height:20px">
+        
+                                    <span >Salary Range</span><span style="color:#F46700; font-size:14px" ><%= jobdetails.salary.minimumValue %>-<%= jobdetails.salary.maximumValue %> <%= jobdetails.salary.currency.toUpperCase() %><%= jobdetails.salary.rate.replace(/_/g, ' ').replace(/PER/g, '/') %></span></div></div>
+                                </div>
+                        <div class="col-3">
+                            <div class="icon-bx" style="display: flex;">
+                                <span class="icon-cell">
+                                    <img style="width:40px; height:40px;"  src="/assets/images/svg/calendar.svg" alt="icon">
+                                </span>
+                                <div style="padding-left: 15px; display:flex; flex-direction:column; line-height:20px">
+    
+                                <span >Qualifications</span><span style="color:#F46700; font-size:14px" ><%= jobdetails.qualification.qualificationRequired.join(' , ') %></span></div></div>
+                            </div>
+                            <div class="col-3">
+                                <div class="icon-bx" style="display: flex;">
+                                    <span class="icon-cell">
+                                        <img style="width:35px; height:35px;"  src="/assets/images/svg/calendar.svg" alt="icon">
+                                    </span>
+                                    <div style="padding-left: 15px; display:flex; flex-direction:column; line-height:20px">
+        
+                                    <span >Experience</span><span style="color:#F46700; font-size:14px" ><%= jobdetails.experienceLevel %></span></div></div>
+                                </div>
+                                
+                                        <div class="col-3">
+                                            <div class="icon-bx" style="display: flex;">
+                                                <span class="icon-cell">
+                                                    <img style="width:35px; height:35px;"  src="/assets/images/svg/calendar.svg" alt="icon">
+                                                </span>
+                                                <div style="padding-left: 15px; display:flex; flex-direction:column; line-height:20px">
+                    
+                                                <span >Preffered Gender</span><span style="color:#F46700; font-size:14px" > <%= jobdetails.gender %></span></div></div>
+                                            </div>
+                     
+                                        </div>
+                    </div>
+                </div>
                 
 
-                    content
-                    
-                    <!-- blog END -->
+               
+
+                <div class="form-wrapper style-1" style="padding-top: 120px;">
+                    <div class="form-body  background-blend-burn" style="background-image: url(images/background/bg2.png); background-size: cover; background-color:white; border:1px solid #2ab0e5; padding: 40px;" >
+                        <div class="section-head style-1 m-b30">
+                            <h3 style="text-align:center; margin-right:20px; font-size:30px" class="title  m-b0" >Apply Now</h3>
+                        
+                        </div>
+                        <form id="careerform" >
+                            <input type="hidden" class="form-control" name="dzToDo" value="Contact">
+                            <input type="hidden" class="form-control" name="reCaptchaEnable" value="0">
+                            <div class="dzFormMsg"></div>
+                            <div class="row">
+                                <div class="col-sm-6 m-b30">
+                                    <div class="form-floating floating-underline input-light">
+                                        <input name="<%= CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.name %>" type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                                        <label for="inputFirstName">Full Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <div class="form-floating floating-underline input-light">
+                                        <input name="<%= CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.phone %>" type="text" class="form-control dz-number" id="inputPhoneNumber" placeholder="Phone Number">
+                                        <label for="inputPhoneNumber">Contact Number</label>
+                                    </div>
+                                </div>
+                                 <div class="col-sm-6 m-b30">
+                                    <div class="form-floating floating-underline input-light" style="    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;">
+                                        <input 
+                                        type="file" 
+                                        name="<%= CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.resume %>" 
+                                        placeholder="Attach Resume" 
+                                        accept=".pdf" 
+                                        required
+                                   style="padding:15px 0px"
+                                    >
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <div class="form-floating floating-underline input-light">
+                                        <input name="<%= CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.email %>" type="email" class="form-control" id="inputYourEmail" placeholder="Your Email">
+                                        <label for="inputYourEmail">Your Email</label>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-sm-12 m-b30">
+                                    <div class="form-floating floating-underline input-light">
+                                        <textarea name="<%= CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.remarks %>" class="form-control" id="inputMessage" rows="4" placeholder="Select Service"></textarea>
+                                        <label for="inputMessage">Message</label>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: none;" >
+                                    <input type="hidden" id="websiteProjectId" name="websiteProjectId" value="6760ee6577e9b0d3ffef0e70">
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" name="submit" value="submit" class="btn btn-lg btn-icon btn-white hover-secondary btn-shadow">
+                                        Submit <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-xl-3">
+            </div>
+
+
+
+
+
+
+                <div class="col-xl-3" >
                     <aside class="side-bar sticky-top  m-b30 p-0">
-Tags
+
+                        <div  class="widget recent-posts-entry wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.5s">
+                            <% if (otherjobs.length > 0) { %>
+                        <div class="widget-title ">
+                            <h4 class="title">More Job Offers</h4>
+                        </div>
+                        
+                        <div class="widget-post-bx">
+                            
+                            <% otherjobs.forEach(item => { %>
+                            <div class="widget-post clearfix" onclick="window.location.href='/listing-enquiry/<%= item.seoDetails.slug %>'" style="padding: 20px; box-shadow: 0 0 2px rgb(0,0,0,0.2);">
+                                <div class="dz-info" style="margin-left: 0;">
+                                    <div class="blog-single style-1" style="margin-bottom: 0 !important;">
+                                        <div class="dz-meta" style="margin-bottom: 15px;">
+                                          <ul>
+                                            <li style="background: rgba(244, 103, 0, .1); color:#F46700" class="post-date"><%= item.workMode.replace(/_/g, ' ') %></li>
+                                            <% if (item.location && item.location.cities && item.location.cities.length > 0 && item.location.cities[0].name) { %>
+                                                <a style="color: #0A3366;" href="javascript:void(0);">
+                                                    <i style="margin-right: 10px;" class="flaticon-placeholder"></i>
+                                                    <%= item.location.cities[0].name %>
+                                                </a>
+                                            <% } %>
+                                            
+                                        </ul>
+                                    </div>
+                                      </div>
+                                    <h6 style="font-size: 24px; color:#0A3366" ><a style="color:#0A3366" href="/listing-enquiry/<%= item.seoDetails.slug %>"><%= item.title %></a></h6>
+                                    <div style="color:#566593 !important; " class="card-text">
+                                        <%- item.description.replace(/<\/?span[^>]*>/g, '').split(' ').slice(0, 10).join(' ') %>...
+                                    </div>
+                                    <p><%= item.qualification.qualificationRequired.join(' , ') %>
+                                    </p>
+                                </div> 
+                            </div><% }) %>
+                        </div>
+                        <% } %>
+                        </div> 
 
 
 </aside>
@@ -27,4 +226,102 @@ Tags
     
 </main>
 
+<script>
+           
+    document.getElementById('careerform').addEventListener('submit', async function (e) {
+        e.preventDefault(); // Prevent default form submission
+    
+        try {
+            const API_BASE_URL = "<%= API_BASE_URL %>";
+            const websiteID = "<%= websiteID %>";
+            const WEBSITEIDKEY = "<%= WEBSITE_ID_KEY %>";
+            const CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS = <%- JSON.stringify(CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS) %>;
+            
+            const UPLOAD_FILES_END_POINT = `${API_BASE_URL}/third-party/file-upload/upload-files`;
+            const CREATE_CAREER_ENQUIRY_END_POINT = `${API_BASE_URL}/website/career-enquiry/create-career-enquiry`;
+    
+            const careerform = e.target; // Reference to the form element
+            const WEBSITE_ID_KEY = WEBSITEIDKEY;
+    
+            // -------------------------------------------
+            // 1. Upload File
+            const uploadFileData = new FormData();
+            const fileInput = careerform.querySelector(
+                `input[name="${CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.resume}"]`
+            ).files[0];
+    
+            if (!fileInput) {
+                throw new Error("Please upload a resume file.");
+            }
+    
+            uploadFileData.append("file", fileInput);
+    
+            const fileUploadResponse = await fetch(UPLOAD_FILES_END_POINT, {
+                method: "POST",
+                body: uploadFileData,
+            });
+    
+            if (!fileUploadResponse.ok) {
+                throw new Error(`File upload failed! Status: ${fileUploadResponse.status}`);
+            }
+    
+            const fileUploadData = await fileUploadResponse.json();
+            const uploadedResume =
+                fileUploadData?.data?.length > 0
+                    ? fileUploadData?.data[0]?.imageNames[0]
+                    : "";
+    
+            if (!uploadedResume) {
+                throw new Error("File upload did not return a valid file name.");
+            }
+    
+            // -------------------------------------------
+            // 2. Prepare Form Payload
+            const payload = {
+                [CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.name]: careerform.querySelector(
+                    `input[name="${CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.name}"]`
+                ).value,
+                [CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.phone]: careerform.querySelector(
+                    `input[name="${CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.phone}"]`
+                ).value,
+                [CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.email]: careerform.querySelector(
+                    `input[name="${CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.email}"]`
+                ).value,
+                [CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.remarks]: careerform.querySelector(
+                    `textarea[name="${CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.remarks}"]`
+                ).value,
+                [CAREER_ENQUIRY_DYNAMIC_FIELDS_KEYS.resume]: uploadedResume,
+                [WEBSITE_ID_KEY]: websiteID,
+            };
+    
+            // -------------------------------------------
+            // 3. Submit the Form Data
+            const headers = new Headers({
+                "Content-Type": "application/json",
+            });
+    
+            const response = await fetch(CREATE_CAREER_ENQUIRY_END_POINT, {
+                method: "POST",
+                headers,
+                body: JSON.stringify(payload),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Form submission failed! Status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+    
+            // Redirect to the thank-you page on success
+            sessionStorage.setItem("thankYouMessage", "We've Recieved Your Request and will Reach out to you soon");
+            window.location.href = "/thankyou";
+        } catch (error) {
+            console.error("Form submission error:", error);
+            // Optionally, you can handle error logging or UI enhancements here
+        }
+    });
+    
+    
+ 
+ </script>
 <%- include('footer') %>

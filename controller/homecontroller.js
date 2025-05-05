@@ -62,6 +62,18 @@ exports.getjobdetails = async (slug) => {
     return null;
 };
 
+exports.getotherjobs = async (slug) => {  
+    const websiteID = await getWebsiteID(); 
+    const data = await fetchData(`${API_BASE_URL}/website/job-listing/get-all-jobs/${websiteID}`);
+
+    if (data && Array.isArray(data)) {
+        return data.filter(job => job.seoDetails?.slug !== slug);
+    }
+
+    return [];
+};
+
+
 
 exports.getspecialization = async(req, res) => {  
     const websiteID = await getWebsiteID(); 

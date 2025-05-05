@@ -1,7 +1,7 @@
 <%- include('header') %>
 <section class="content-inner" style="margin-top: 85px;">
     <div class="container" style="max-width:1200px">
-        <div class="row">
+        <div class="row" style="gap: 30px; align-items: start;">
             <% jobs.forEach(item => { %>
             <div class="card mb-4 shadow-sm"  style="max-width: 370px; padding:15px;  box-shadow:0 0 5px rgb(0,0,0,0.2) !important;">
                 <!-- <img  style="max-height: 300px;" alt="A detailed description of the top story image" class="card-img-top" src="https://placehold.co/600x400"/> -->
@@ -23,20 +23,17 @@
                     <%- item.description.replace(/<\/?span[^>]*>/g, '').split(' ').slice(0, 16).join(' ') %>...
 
                  <div  style="margin-top:10px">
-        <a  style="color: #0A3366;" href="javascript:void(0);"><i style="margin-right: 10px; " class="flaticon-placeholder"></i>raipur..
-        </a><br>
+                    <% if (item.location && item.location.cities && item.location.cities.length > 0 && item.location.cities[0].name) { %>
+                        <a style="color: #0A3366;" href="javascript:void(0);">
+                            <i style="margin-right: 10px;" class="flaticon-placeholder"></i>
+                            <%= item.location.cities[0].name %>
+                        </a>
+                    <% } %>
        <p style="margin-top: 1rem;"><span><%= item.experienceLevel %></span> | <span> <%= item.jobPosition %>
         </span>
     </p>
-    <p></p><% item.qualification.qualificationRequired.forEach(tag => { %>
-        <span>
-                  <%= tag %>
-        </span>
-<% }) %>
+    <p><%= item.qualification.qualificationRequired.join(' , ') %>
         </p>
-        <div>
-
-        </div>
                 </div>
 
 <a style="color:#F46700" href="/listing-enquiry/<%= item.seoDetails.slug %>"><div class="footerbody" style="display:flex; gap:10px; border-top: 1px solid rgb(0,0,0,0.1); padding:15px 0; margin-top:25px; ">
@@ -46,9 +43,10 @@
 </div></a>                
 
                </div>
-               <% }) %>
         </div>
     </div>
+    
+    <% }) %>
 </section>
 
 <style>

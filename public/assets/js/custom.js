@@ -29,6 +29,30 @@ var ClinicMaster = function () {
 			});
 		}
 	}
+
+	var handleMenu = function () {
+		const menuToggler = document.querySelector('.menu-toggler');
+		
+		if (menuToggler) {
+			const body = document.querySelector('body');
+			const menuClose = document.querySelector('.menuclosenow');
+			
+			const target = menuToggler.getAttribute('data-target');
+			const targetElement = document.querySelector(target);
+			
+			menuToggler.addEventListener('click', function(){
+				menuToggler.classList.add('open');
+				body.classList.add('fixed');
+				targetElement.classList.add('show');
+			});
+			
+			menuClose.addEventListener('click', function(){
+				menuToggler.classList.remove('open');
+				body.classList.remove('fixed');
+				targetElement.classList.remove('show');
+			});
+		}
+	}
 	
 	// Handle Pricing Tabs ============
 	var handlePricingTabs = function(){
@@ -693,6 +717,7 @@ var ClinicMaster = function () {
 	return {
 		init: function () {
 			handleW3Menu();
+			handleMenu();
 			handlePricingTabs();
 			handleFlexWrapper();
 			handleTempusDominus();

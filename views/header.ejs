@@ -61,7 +61,6 @@
 	</div>
    </div> -->
 
-		<!-- Header Star -->
 	<header class="site-header header style-1 " >		
 		
 		<div class="header-info-bar d-none d-xxl-block" >
@@ -102,32 +101,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col">
-						<div class="icon-bx-wraper style-5">
-							<div class="icon-bx">
-								<span class="icon-cell">
-									<img src="/assets/images/svg/icon3.svg" alt="">
-								</span>
-							</div>
-							<div class="icon-content">
-								<h2 class="dz-title text-primary">Online Appointment </h2>
-								<p>Book Now <i class="feather icon-arrow-right"></i></p>
-							</div>
-						</div>
-					</div> -->
-					<!-- <div class="col">
-						<div class="icon-bx-wraper style-5">
-							<div class="icon-bx">
-								<span class="icon-cell">
-									<img src="/assets/images/svg/icon4.svg" alt="">
-								</span>
-							</div>
-							<div class="icon-content">
-								<h2 class="dz-title text-primary">Supports</h2>
-								<p>24x7 Supports</p>
-							</div>
-						</div>
-					</div> -->
+					
 					
 					<div class="col-4">
 						<div class="icon-bx-wraper style-5">
@@ -142,45 +116,28 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col">
-						<div class="icon-bx-wraper style-5">
-							<div class="icon-bx">
-								<span class="icon-cell">
-									<img src="/assets/images/svg/icon6.svg" alt="">
-								</span>
-							</div>
-							<div class="icon-content">
-								<h2 class="dz-title text-primary">My Cart</h2>
-								<p>2 Items</p>
-							</div>
-						</div>
-					</div> -->
+					
 				</div>
 			</div>
 		</div>
 		
-		<!-- Main Header -->
 		<div class="sticky-header main-bar-wraper" style="top:0; width:100%; box-shadow: 0px 0px 8px #c2c2c2;">
 			<div class="main-bar clearfix text-white">
 				<div class="container-fluid clearfix inner-bar">
-					<div class="logo-header logo-dark " style="display: flex; padding-top:20px">
+					<div class="logo-header logo-dark logo" style="display: flex; padding-top:30px">
 						<a href="/"><img src="/assets/images/logo/SHRIANANTLOGO.svg"  alt="logo"></a>
 						
 					</div>
-					<!-- Website Logo -->
 					
-					
-					<!-- Nav Toggle Button -->
 					<button class="w3menu-toggler navicon" type="button" data-target="#W3Menu">
 						<span></span>
 						<span></span>
 						<span></span>
 					</button>
 					
-					<!-- Main Nav -->
 					<div class="menu-close fade-overlay"></div>
 					<div class="header-nav w3menu w3menu-end mo-left" id="W3Menu">
-						<div class="logo-header logo-dark " style="display: flex;">
+						<div class="logo-header logo-dark  hide" style="display: flex;">
 							<a href="/"><img src="/assets/images/logo/SHRIANANTLOGO.svg"  alt="logo"></a>
 							
 						</div>
@@ -347,29 +304,33 @@
 		<!-- Sidebar -->
 
 		
+
+		
 		<div class="sticky-header main-bar-wraper" id="navbar2" style="position: fixed; top:0; width:100%; box-shadow: 0px 0px 8px #c2c2c2;">
 			<div class="main-bar clearfix">
 				<div class="container-fluid clearfix inner-bar">
 					
-							<div class="logo-header logo-dark " style="display: flex; padding-top:20px">
+							<div class="logo-header logo-dark" style="display: flex; padding-top:20px">
 								<a href="/"><img src="/assets/images/logo/SHRIANANTLOGO.svg"  alt="logo"></a>
 								
 							</div>
 						
-					<!-- Website Logo -->
 					
-					<button class="w3menu-toggler navicon" type="button" data-target="#W3Menu">
+					<button class="w3menu-toggler menu-toggler navicon" type="button" data-target="#menuscroll">
 						<span></span>
 						<span></span>
 						<span></span>
 					</button>
 					
-					<!-- Main Nav -->
-					<div class="menu-close fade-overlay"></div>
-					<div class="header-nav w3menu w3menu-end mo-left" id="W3Menu" style="    justify-content: space-between;" >
-						
+					<div class="menu-close fade-overlay menuclosenow"></div>
+					<div class="header-nav w3menu w3menu-end mo-left" id="menuscroll" style="    justify-content: flex-end;" >
+						<div class="logo-header logo-dark hide" style="display: flex; padding-top:40px">
+							<a href="/"><img src="/assets/images/logo/SHRIANANTLOGO.svg"  alt="logo"></a>
+							
+						</div>
 
-						<ul class="nav navbar-nav col-7"  >
+						<ul class="nav navbar-nav col-7" style="justify-content: flex-end;
+    width: 75%;" >
 							<li>
 								<a href="/"><span>Home</span> </a>
 								
@@ -401,24 +362,6 @@
 							<li><a href="/contact"><span>Contact Us</span></a></li>
 						</ul>
 						
-						<div class="extra-nav col-2">
-							<div class="extra-cell">						
-								<ul class="header-right" style="display: flex;  justify-content:flex-end; gap:20px">
-									<li class="nav-item">
-										<a href="/appointment" class="btn btn-primary btn-hover1">
-											Appointment
-										</a>
-									</li>
-									<li class="nav-item">
-										<button type="button" class="toggle-nav-btn" data-bs-toggle="offcanvas" data-bs-target="#headerSidebar" aria-controls="offcanvasLeft">
-											<span></span>
-											<span></span>
-											<span></span>
-										</button>
-									</li>
-								</ul>
-							</div>
-						</div>
 
 						<div class="dz-social-icon">
 							<ul>
@@ -448,12 +391,31 @@
 					</div>
 				
 					<!-- EXTRA NAV -->
-					
+					<div class="extra-nav col-2" style="    display: flex
+;
+    justify-content: flex-end;">
+							<div class="extra-cell">						
+								<ul class="header-right" style="display: flex;  justify-content:flex-end; gap:20px">
+									<li class="nav-item">
+										<a href="/appointment" class="btn btn-primary btn-hover1">
+											Appointment
+										</a>
+									</li>
+									<li class="nav-item">
+										<button type="button" class="toggle-nav-btn" data-bs-toggle="offcanvas" data-bs-target="#headerSidebar" aria-controls="offcanvasLeft">
+											<span></span>
+											<span></span>
+											<span></span>
+										</button>
+									</li>
+								</ul>
+							</div>
+						</div>
 				
 				</div>
 			</div>
 		</div>
-		<!-- Main Header End -->
+		
 		 <style>
 			#navbar1{
 				display: block;
@@ -476,7 +438,14 @@
     }
 });
 
-			
+function toggleMenu() {
+    var menu = document.getElementById("W3menu");
+    if (menu.style.display === "none" || menu.style.display === "") {
+        menu.style.display = "block";
+    } else {
+        menu.style.display = "none";
+    }
+}
 		</script>
 		
 
