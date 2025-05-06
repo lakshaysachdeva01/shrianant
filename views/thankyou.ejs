@@ -1,54 +1,535 @@
-
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <!-- Head content remains the same -->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You</title>
-    <link rel="stylesheet" href="/assets/css/style.css"> 
+    <link rel="shortcut icon" href="/assets/images/icon/logo small.png" type="image/png">
     
     <meta name="description" content="<%= seoDetails?.metaDescription || '' %>">
-
-    <!-- Open Graph meta tags for social sharing -->
     <meta property="og:title" content="<%= seoDetails?.title || '' %>">
     <meta property="og:description" content="<%= seoDetails?.metaDescription || '' %>">
     <meta property="og:image" content="<%= seoDetails?.metaImage || '' %>">
     <meta name="author" content="">
     <meta property="og:type" content="website">
-
     <meta name="keywords" content="<%= seoDetails?.keywords || '' %>"> 
     <link rel="canonical" href="<%= seoDetails?.canonical || '' %>" />
-
-
     <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="<%= seoDetails?.title || '' %>">
-        <meta name="twitter:description" content="<%= seoDetails?.metaDescription || '' %>">
-        <meta name="twitter:image" content="<%= seoDetails?.metaImage || '' %>">
-        <meta name="twitter:url" content="<%= seoDetails.canonical || ''  %>">
-    <!--====== Title ======-->
-    <title><%= seoDetails?.title %></title>
+    <meta name="twitter:title" content="<%= seoDetails?.title || '' %>">
+    <meta name="twitter:description" content="<%= seoDetails?.metaDescription || '' %>">
+    <meta name="twitter:image" content="<%= seoDetails?.metaImage || '' %>">
+    <meta name="twitter:url" content="<%= seoDetails.canonical || ''  %>">
     
-    
-    <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="/assets/images/icon/logo small.png" type="image/png">
+    <style>
+        /* CSS styles remain the same */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #41B6E6;
+            --primary-light: rgba(65, 182, 230, 0.2);
+            --primary-lighter: rgba(65, 182, 230, 0.1);
+            --secondary: #FF6B00;
+            --secondary-light: rgba(255, 107, 0, 0.2);
+            --secondary-lighter: rgba(255, 107, 0, 0.1);
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-lighter) 0%, white 40%, white 60%, var(--secondary-lighter) 100%);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .thank-you-container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Background elements */
+        .bg-element {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        
+        .bg-circle {
+            border-radius: 50%;
+        }
+        
+        .bg-circle-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .bg-circle-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--secondary-light) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        .bg-plus {
+            font-size: 120px;
+            color: var(--primary-light);
+            font-weight: 300;
+            transform: rotate(45deg);
+        }
+        
+        .bg-plus-1 {
+            top: 10%;
+            left: 5%;
+            animation: float 15s ease-in-out infinite;
+        }
+        
+        .bg-plus-2 {
+            bottom: 15%;
+            right: 10%;
+            animation: float 18s ease-in-out infinite reverse;
+        }
+        
+        .bg-plus-3 {
+            top: 50%;
+            left: 15%;
+            font-size: 80px;
+            animation: float 12s ease-in-out infinite 2s;
+        }
+        
+        .bg-heartbeat {
+            width: 200px;
+            height: 60px;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.3;
+        }
+        
+        /* Content styling */
+        .content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .success-icon {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(65, 182, 230, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            position: relative;
+            animation: pulse-shadow 3s infinite;
+        }
+        
+        .success-icon svg {
+            width: 80px;
+            height: 80px;
+            color: var(--primary);
+            animation: scale-in 0.6s ease-out forwards;
+        }
+        
+        .success-icon::before {
+            content: '';
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border: 2px dashed var(--primary);
+            border-radius: 50%;
+            animation: spin 30s linear infinite;
+        }
+        
+        .success-icon::after {
+            content: '';
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            border: 2px dashed var(--secondary);
+            border-radius: 50%;
+            animation: spin 40s linear infinite reverse;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        p {
+            color: #555;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .home-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(255, 107, 0, 0.4);
+        }
+        
+        .home-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .home-button:hover::after {
+            transform: rotate(45deg) translate(10%, 10%);
+        }
+        
+        /* Medical SVG elements */
+        .medical-svg {
+            position: absolute;
+            z-index: 5;
+        }
+        
+        .stethoscope {
+            width: 120px;
+            height: 120px;
+            top: 15%;
+            right: 10%;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.8;
+        }
+        
+        .doctor {
+            width: 150px;
+            height: 150px;
+            bottom: 10%;
+            right: 15%;
+            animation: float 10s ease-in-out infinite 1s;
+            opacity: 0.7;
+        }
+        
+        .medicine {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation: float 7s ease-in-out infinite 0.5s;
+            opacity: 0.7;
+        }
+        
+        .hospital {
+            width: 100px;
+            height: 100px;
+            bottom: 15%;
+            left: 10%;
+            animation: float 9s ease-in-out infinite 1.5s;
+            opacity: 0.7;
+        }
+        
+        .plus-sign {
+            position: absolute;
+            font-size: 30px;
+            font-weight: bold;
+            color: var(--primary);
+            z-index: 5;
+        }
+        
+        .plus-1 {
+            top: 30%;
+            left: 20%;
+            animation: pulse 3s infinite;
+        }
+        
+        .plus-2 {
+            top: 25%;
+            right: 25%;
+            animation: pulse 3s infinite 0.5s;
+        }
+        
+        .plus-3 {
+            bottom: 30%;
+            left: 30%;
+            animation: pulse 3s infinite 1s;
+        }
+        
+        .plus-4 {
+            bottom: 20%;
+            right: 35%;
+            animation: pulse 3s infinite 1.5s;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse-shadow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(65, 182, 230, 0.3);
+            }
+            50% {
+                box-shadow: 0 15px 40px rgba(65, 182, 230, 0.5);
+            }
+        }
+        
+        @keyframes scale-in {
+            0% {
+                transform: scale(0);
+            }
+            70% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            .success-icon {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .success-icon svg {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .success-icon::before {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .success-icon::after {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .stethoscope, .doctor, .medicine, .hospital {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="message-container ">
-        <h1 class="title" style="z-index: 2;">Thank You!</h1>
-        <p id="thank-you-message"></p>
-        <a href="/" class="main-btn main-btn-2">Go Back to Home</a>
-    </div>
-</body>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const message = sessionStorage.getItem("thankYouMessage");
+    <div class="thank-you-container">
+        <!-- Background elements -->
+        <div class="bg-element bg-circle bg-circle-1"></div>
+        <div class="bg-element bg-circle bg-circle-2"></div>
+        <div class="bg-element bg-plus bg-plus-1">+</div>
+        <div class="bg-element bg-plus bg-plus-2">+</div>
+        <div class="bg-element bg-plus bg-plus-3">+</div>
         
-        if (message) {
-            // Display the message in an element with ID 'thank-you-message'
-            document.getElementById("thank-you-message").textContent = message;
+        <!-- Medical SVG elements -->
+        <div class="medical-svg stethoscope">
+            <!-- NEW CLEARLY IDENTIFIABLE STETHOSCOPE SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+                <!-- Ear pieces -->
+                <path d="M25,15 C25,15 20,20 20,25 C20,30 25,30 25,30 C25,30 30,30 30,25 C30,20 25,15 25,15 Z" fill="#41B6E6"/>
+                <path d="M75,15 C75,15 70,20 70,25 C70,30 75,30 75,30 C75,30 80,30 80,25 C80,20 75,15 75,15 Z" fill="#41B6E6"/>
+                
+                <!-- Headset -->
+                <path d="M25,30 C25,30 30,35 50,35 C70,35 75,30 75,30" stroke="#41B6E6" stroke-width="4" fill="none"/>
+                
+                <!-- Tubing -->
+                <path d="M50,35 L50,50 L40,60" stroke="#41B6E6" stroke-width="4" fill="none"/>
+                
+                <!-- Chest piece stem -->
+                <rect x="37" y="60" width="6" height="15" fill="#41B6E6"/>
+                
+                <!-- Chest piece (diaphragm) -->
+                <circle cx="40" cy="85" r="12" fill="#41B6E6"/>
+                <circle cx="40" cy="85" r="8" fill="white"/>
+                <circle cx="40" cy="85" r="4" fill="#41B6E6"/>
+            </svg>
+        </div>
+        
+        <div class="medical-svg doctor">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#41B6E6">
+                <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1V362c27.6 7.1 48 32.2 48 62v40c0 8.8-7.2 16-16 16H336c-8.8 0-16-7.2-16-16s7.2-16 16-16V424c0-17.7-14.3-32-32-32s-32 14.3-32 32v24c8.8 0 16 7.2 16 16s-7.2 16-16 16H256c-8.8 0-16-7.2-16-16V424c0-29.8 20.4-54.9 48-62V304.9c-6-.6-12.1-.9-18.3-.9H178.3c-6.2 0-12.3 .3-18.3 .9v65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7V311.2zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/>
+            </svg>
+        </div>
+        
+        <div class="medical-svg medicine">
+            <!-- Improved medicine/pill SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.5 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v7.5"></path>
+                <path d="M8 12h8"></path>
+                <path d="M12 8v8"></path>
+                <circle cx="17" cy="17" r="5"></circle>
+                <path d="M17 14v6"></path>
+                <path d="M14 17h6"></path>
+            </svg>
+        </div>
+        
+        <div class="medical-svg hospital">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="#41B6E6">
+                <path d="M232 0c-8.8 0-16 7.2-16 16V64H152c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h64v48H72c-39.8 0-72 32.2-72 72V432c0 44.2 35.8 80 80 80H288c8.8 0 16-7.2 16-16V400c0-17.7 14.3-32 32-32s32 14.3 32 32v96c0 8.8 7.2 16 16 16H560c44.2 0 80-35.8 80-80V248c0-39.8-32.2-72-72-72H424V128h64c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16H408V16c0-8.8-7.2-16-16-16H232zM80 224H176c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm0 96H176c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16zm288-96h96c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm0 96h96c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16z"/>
+            </svg>
+        </div>
+        
+        <!-- Add more medical SVGs -->
+        <div class="medical-svg" style="width: 90px; height: 90px; top: 40%; right: 20%; animation: float 9s ease-in-out infinite 1s; opacity: 0.7;">
+            <!-- Medical cross SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#41B6E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+        </div>
+        
+        <div class="medical-svg" style="width: 80px; height: 80px; bottom: 35%; left: 20%; animation: float 8s ease-in-out infinite 0.5s; opacity: 0.7;">
+            <!-- Heart rate monitor SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path>
+                <path d="M3.5 12h4l1.5-3 2 6 1.5-3h4.5"></path>
+            </svg>
+        </div>
+        
+        <!-- Plus signs -->
+        <div class="plus-sign plus-1">+</div>
+        <div class="plus-sign plus-2">+</div>
+        <div class="plus-sign plus-3">+</div>
+        <div class="plus-sign plus-4">+</div>
+        
+        <!-- Heartbeat line -->
+        <div class="bg-element bg-heartbeat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 100" fill="none" stroke="#FF6B00" stroke-width="3">
+                <path d="M0,50 L30,50 L45,20 L75,80 L90,50 L120,50 L150,10 L180,90 L210,50 L240,50 L270,20 L300,80 L330,50 L360,50 L390,10 L420,90 L450,50 L480,50 L510,20 L540,80 L570,50 L600,50 L640,50" />
+            </svg>
+        </div>
+        
+        <!-- Main content -->
+        <div class="content">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            
+            <h1>Thank You!</h1>
+            <p id="thank-you-message"></p>
+            
+            <a href="/" class="home-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </div>
     
-            // Optionally clear the message after it's shown (to avoid persisting after page reload)
-            sessionStorage.removeItem("thankYouMessage");
-        }
-    });
-    
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get message from session storage
+            const message = sessionStorage.getItem("thankYouMessage");
+            
+            // Display the message or use a default one
+            if (message) {
+                document.getElementById("thank-you-message").textContent = message;
+                // Clear the message after it's shown
+                sessionStorage.removeItem("thankYouMessage");
+            } else {
+                document.getElementById("thank-you-message").textContent = 
+                    "Your submission has been received successfully. Our medical team will review your information and get back to you shortly. We appreciate your trust in Shri Anant Sai Hospital.";
+            }
+        });
+    </script>
+</body>
+</html>

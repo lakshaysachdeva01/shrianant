@@ -21,10 +21,14 @@
 
 .step-content .icon-bx-wraper{
   text-align: center;
-  width: 140px;
-  height: 140px;
-  padding: 20px 5px 20px 5px !important;
+
+  height: 180px;
+  padding: 20px !important;
   border-radius: 25px !important;
+  display: flex
+;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -39,7 +43,7 @@
 }
 .step-content .department-option{
 
-width: 140px;
+width: 100%;
 margin: 10px ;
 }
 
@@ -87,7 +91,7 @@ margin: 10px ;
     }
    
       .content-wrapper.style-8 .form-body {
-        padding: 35px 0 !important;
+        padding: 35px 20 !important;
       }
   .doctor-cards,.department-card{
     justify-content: center;
@@ -247,3 +251,14 @@ margin-top: 20px;
   filter: none;
 }
 
+
+
+.paddingtopresponsive{
+  padding-top: 100px !important;
+}
+@media  (max-width:600px) {
+  
+.paddingtopresponsive{
+  padding-top: 25px !important;
+}
+}

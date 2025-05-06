@@ -17378,6 +17378,13 @@ section {
   border: 0;
   padding: 50px 40px ;
 }
+
+@media (max-width:500px) {
+  .swiper-slide .testimonial-1 {
+    border: 0;
+    padding: 20px 30px ;
+  }
+}
 .testimonial-1 .dz-media {
   min-width: 210px;
   width: 210px;
@@ -23051,7 +23058,7 @@ input[type="search"]::-webkit-search-results-decoration {
   align-items: center;
   justify-content: center;
   position: absolute;
-  left: 0;
+  left: -28px;
   top: 45px;
 }
 .form-wrapper.style-1 .form-body {
@@ -26660,7 +26667,7 @@ table {
 }
 .content-wrapper.style-8 .form-wrapper {
   /* margin-left: 60px; */
-  margin-bottom: 60px;
+  margin-bottom: 15px;
 }
 @media only screen and (max-width: 1380px) {
   .content-wrapper.style-8 .form-wrapper {

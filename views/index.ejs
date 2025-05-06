@@ -3,12 +3,12 @@
 
     
 <%- include('./partials/homebanner.ejs') %>
-
+<div class="paddingtopresponsive">
 <%- include('./partials/aboutbrief.ejs') %>
-
+</div>
 <%- include('./partials/counter.ejs') %>
 
-<section class="content-inner-2 bg-light" style="padding-top:100px !important; background:#ecf5fb">
+<section class="content-inner-2 bg-light paddingtopresponsive" style=" background:#ecf5fb">
     <div class="container">
         <div class="section-head style-1 m-b30 row align-items-end">
             <div class="col-xl-7 col-md-9 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
@@ -26,7 +26,7 @@
     </div>
 </section>
 
-<section class="content-inner-2 bg-light z-2" style="background-image: url(/assets/images/background/bg5.png); padding-top:100px !important;  background-color:#ecf5fb">
+<section class="content-inner-2 bg-light z-2 paddingtopresponsive" style="background-image: url(/assets/images/background/bg5.png);   background-color:#ecf5fb">
     <div class="container">
         <div class="row align-items-end content-wrapper style-8">
             <div class="col-lg-6 text-center wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
@@ -35,7 +35,11 @@
             <div class="col-lg-6" data-bottom-top="transform: translateY(100px)" data-top-bottom="transform: translateY(-10px)">
                 <div class="form-wrapper style-1 text-vr-wrapper">
                     <div class="text-vertical">Appointment Now</div>
-                    <div class="form-body bg-primary background-blend-burn" style="background-image: url(images/background/bg2.png); background-size: cover">
+                    <div class="form-body bg-primary background-blend-burn" style="    position: relative;
+                    background-image: url(/assets/images/background/bg2.png);
+                    z-index: 88888999;
+                    background-size: cover;
+                    padding: 20px 41px;">
                         <div class="title-head">
                             <h2 class="form-title m-b0">Make An <span>Appointment</span> <br> Apply For Treatments</h2>
                         </div>
@@ -64,7 +68,12 @@
                                 </div>
                                 <div class="col-sm-6 m-b30">
                                     <div class="form-floating floating-underline input-light">
-                                        <select name="dzOther[Services]" class="bs-select" data-style="form-control" title="Select Service">
+                                        <select name="dzOther[Services]" class="bs-select" data-style="form-control" style="background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0;
+    height: 60px;
+    color:#031b4e" title="Select Service">
                                             <option value="Angioplasty">Angioplasty</option>
                                             <option value="Cardiology">Cardiology</option>
                                             <option value="Dental">Dental</option>
@@ -98,7 +107,7 @@
 
 <%- include('./partials/testimonials.ejs') %>
 
-<section class="content-inner" style="padding-top:100px !important; ">
+<section class="content-inner paddingtopresponsive" >
     <div class="container">
         <div class="row content-wrapper style-3">
             <div class="col-xl-4 m-b30 pe-xl-4">
@@ -302,7 +311,7 @@
         <h2 class="title m-b0">Stay Informed with <br> Our Latest Health Blogs</h2>
       </div>
       <div class="col-lg-5 col-md-4 text-md-end d-none d-md-block wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
-        <a href="/blog-gri" class="btn btn-icon btn-primary btn-shadow">
+        <a href="/posts" class="btn btn-icon btn-primary btn-shadow">
           View All
           <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
         </a>
@@ -319,11 +328,11 @@
             <div class="content-half">
               <div class="post-date"><%= post.postDate %></div>
               <h3 class="dz-title">
-                <a href="/blog/<%= post.slug %>"><%= post.title %></a>
+                <a href="<% if (post.category === 'NEWS_FEED') { %>/casestudy-details/<%= post.seoDetails.slug %><% } else if (post.category === 'EVENT') { %>/event-details/<%= post.seoDetails.slug %> <% } else if (post.category === 'BLOG') { %>/blog-details/<%= post.seoDetails.slug %><% } %>"><%= post.title %></a>
               </h3>
             </div>
             <div class="bottom-info">
-              <a href="/blog/<%= post.slug %>" class="btn btn-icon btn-lg btn-primary btn-shadow">
+              <a href="<% if (post.category === 'NEWS_FEED') { %>/casestudy-details/<%= post.seoDetails.slug %><% } else if (post.category === 'EVENT') { %>/event-details/<%= post.seoDetails.slug %> <% } else if (post.category === 'BLOG') { %>/blog-details/<%= post.seoDetails.slug %><% } %>" class="btn btn-icon btn-lg btn-primary btn-shadow">
                 Read More
                 <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
               </a>
@@ -342,9 +351,9 @@
             <div class="post-date"><%= post.postDate %></div>
             <div class="bottom-info">
               <h3 class="dz-title">
-                <a href="/blog/<%= post.slug %>"><%= post.title %></a>
+                <a href=" <% if (post.category === 'NEWS_FEED') { %>/casestudy-details/<%= post.seoDetails.slug %><% } else if (post.category === 'EVENT') { %>/event-details/<%= post.seoDetails.slug %> <% } else if (post.category === 'BLOG') { %>/blog-details/<%= post.seoDetails.slug %><% } %>"><%= post.title %></a>
               </h3>
-              <a href="/blog/<%= post.slug %>" class="btn btn-square btn-white rounded-circle">
+              <a href="<% if (post.category === 'NEWS_FEED') { %>/casestudy-details/<%= post.seoDetails.slug %><% } else if (post.category === 'EVENT') { %>/event-details/<%= post.seoDetails.slug %> <% } else if (post.category === 'BLOG') { %>/blog-details/<%= post.seoDetails.slug %><% } %>" class="btn btn-square btn-white rounded-circle">
                 <i class="feather icon-arrow-up-right"></i>
               </a>
             </div>
@@ -367,10 +376,10 @@
           <div class="dz-info">
             <div class="post-date"><%= post.postDate %></div>
             <h3 class="dz-title">
-              <a href="/blog/<%= post.slug %>"><%= truncatedTitle %></a>
+              <a href="<% if (post.category === 'NEWS_FEED') { %>/casestudy-details/<%= post.seoDetails.slug %><% } else if (post.category === 'EVENT') { %>/event-details/<%= post.seoDetails.slug %> <% } else if (post.category === 'BLOG') { %>/blog-details/<%= post.seoDetails.slug %><% } %>"><%= truncatedTitle %></a>
             </h3>
             <div class="bottom-info ms-auto">
-              <a href="/blog/<%= post.slug %>" class="btn btn-square btn-white rounded-circle">
+              <a href="<% if (post.category === 'NEWS_FEED') { %>/casestudy-details/<%= post.seoDetails.slug %><% } else if (post.category === 'EVENT') { %>/event-details/<%= post.seoDetails.slug %> <% } else if (post.category === 'BLOG') { %>/blog-details/<%= post.seoDetails.slug %><% } %>" class="btn btn-square btn-white rounded-circle">
                 <i class="feather icon-arrow-up-right"></i>
               </a>
             </div>
@@ -389,9 +398,9 @@
             <div class="post-date"><%= post.postDate %></div>
             <div class="bottom-info">
               <h3 class="dz-title">
-                <a href="/blog/<%= post.slug %>"><%= truncatedTitle %></a>
+                <a href="<% if (post.category === 'NEWS_FEED') { %>/casestudy-details/<%= post.seoDetails.slug %><% } else if (post.category === 'EVENT') { %>/event-details/<%= post.seoDetails.slug %> <% } else if (post.category === 'BLOG') { %>/blog-details/<%= post.seoDetails.slug %><% } %>"><%= truncatedTitle %></a>
               </h3>
-              <a href="/blog/<%= post.slug %>" class="btn btn-square btn-white rounded-circle">
+              <a href="<% if (post.category === 'NEWS_FEED') { %>/casestudy-details/<%= post.seoDetails.slug %><% } else if (post.category === 'EVENT') { %>/event-details/<%= post.seoDetails.slug %> <% } else if (post.category === 'BLOG') { %>/blog-details/<%= post.seoDetails.slug %><% } %>" class="btn btn-square btn-white rounded-circle">
                 <i class="feather icon-arrow-up-right"></i>
               </a>
             </div>

@@ -1,4 +1,4 @@
-<section class="content-inner">
+<section class="content-inner paddingtopresponsive">
     <div class="container">
         <div class="row g-xl-4 align-items-center">
             <div class="col-xl-7 pe-xl-4 m-b10">
@@ -96,7 +96,11 @@
             </div>
             <div class="col-xl-5 m-b30" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)">
                 <div class="form-wrapper style-1">
-                    <div class="form-body bg-primary background-blend-burn" style="background-image: url(/assets/images/background/bg2.png);">
+                    <div class="form-body bg-primary background-blend-burn" style="    position: relative;
+                    background-image: url(/assets/images/background/bg2.png);
+                    
+                    background-size: cover;
+                    padding: 20px 41px;">
                         <div class="title-head">
                             <h2 class="form-title m-b0">Make An <span>Appointment</span> <br> Apply For Treatments</h2>
                         </div>
@@ -125,7 +129,12 @@
                                 </div>
                                 <div class="col-sm-6 m-b30">
                                     <div class="form-floating floating-underline input-light">
-                                        <select name="dzOther[Services]" class="bs-select" data-style="form-control" title="Select Service">
+                                        <select name="dzOther[Services]" class="bs-select" data-style="form-control"  style="background: transparent;
+                                        border: none;
+                                        border-bottom: 1px solid rgba(0,0,0,0.1);
+                                        border-radius: 0;
+                                        height: 60px;
+                                        color:#031b4e"  title="Select Service">
                                             <option value="Angioplasty">Angioplasty</option>
                                             <option value="Cardiology">Cardiology</option>
                                             <option value="Dental">Dental</option>

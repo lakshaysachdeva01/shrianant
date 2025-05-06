@@ -28,7 +28,7 @@
                                  <img 
                                    src="<%= process.env.S3_BASE_URL + doctordetails.profilePicture %>" 
                                    alt="<%= doctordetails.fullName %>" 
-                                   style="width: 100%; height: 100%; object-fit: cover;" 
+                                   style="width: 100%; height: 100%; border-radius:12px; object-fit: cover;" 
                                    onerror="showInitialsFallback(this, '<%= doctordetails._id %>', '<%= doctordetails.fullName %>')"
                                  >
                                </div>
@@ -73,33 +73,7 @@
                                  }
                                </script>
                             </div>
-                            <ul class="dz-social">
-                                <li>
-                                    <a href="https://www.linkedin.com" target="_blank">
-                                        <i class="fa-brands fa-linkedin"></i>
-                                    </a>
-                                </li> 
-                                <li>
-                                    <a href="https://www.instagram.com" target="_blank">
-                                        <i class="fa-brands fa-instagram"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.facebook.com" target="_blank">
-                                        <i class="fa-brands fa-facebook-f"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://twitter.com" target="_blank">
-                                        <i class="fa-brands fa-x-twitter"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.youtube.com" target="_blank">
-                                        <i class="fa-brands fa-youtube"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                          
                         </div>
                     </div>
                     <div class="widget widget_schedule bg-secondary text-white wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.7s">
@@ -107,11 +81,97 @@
                             <h4 class="title text-white">My Time Schedule</h4>
                         </div>
                         <table class="table table-border-bottom m-b0">
-                            <% doctordetails.availabilitySchedule.forEach(avail => { %>
-                            <tr>
-                                <th><%= avail.day %></th>
-                                <td class="text-end"><%= avail.startTime %> - <%= avail.endTime %></td>
-                            </tr>
+                            <%
+                                // Function to parse time to minutes for comparison
+                                function parseTime(timeStr) {
+                                    const [time, period] = timeStr.split(' ');
+                                    let [hours, minutes] = time.split(':').map(Number);
+                                    if (period === 'PM' && hours !== 12) hours += 12;
+                                    if (period === 'AM' && hours === 12) hours = 0;
+                                    return hours * 60 + minutes;
+                                }
+                    
+                                // Function to format minutes back to time string
+                                function formatTime(minutes) {
+                                    const hours = Math.floor(minutes / 60) % 24;
+                                    const mins = minutes % 60;
+                                    const period = hours >= 12 ? 'PM' : 'AM';
+                                    const displayHours = hours % 12 === 0 ? 12 : hours % 12;
+                                    return `${displayHours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')} ${period}`;
+                                }
+                    
+                                // Group slots by day or day range
+                                const slotsByDayRange = {};
+                                doctordetails.availabilitySchedule.forEach(avail => {
+                                    const dayKey = avail.day; // Keep "Monday - Friday" as is
+                                    const timeKey = `${avail.startTime}-${avail.endTime}`;
+                                    if (!slotsByDayRange[dayKey]) slotsByDayRange[dayKey] = [];
+                                    slotsByDayRange[dayKey].push({
+                                        startTime: avail.startTime,
+                                        endTime: avail.endTime,
+                                        startMinutes: parseTime(avail.startTime),
+                                        endMinutes: parseTime(avail.endTime)
+                                    });
+                                });
+                    
+                                // Merge continuous slots for each day or day range
+                                const mergedSchedule = [];
+                                Object.keys(slotsByDayRange).forEach(day => {
+                                    // Sort slots by start time
+                                    const slots = slotsByDayRange[day].sort((a, b) => a.startMinutes - b.startMinutes);
+                                    const merged = [];
+                                    let current = slots[0];
+                    
+                                    for (let i = 1; i < slots.length; i++) {
+                                        if (current.endMinutes === slots[i].startMinutes) {
+                                            // Merge continuous slots
+                                            current.endTime = slots[i].endTime;
+                                            current.endMinutes = slots[i].endMinutes;
+                                        } else {
+                                            merged.push(current);
+                                            current = slots[i];
+                                        }
+                                    }
+                                    if (current) merged.push(current);
+                    
+                                    // Add merged slots to the schedule
+                                    merged.forEach(slot => {
+                                        mergedSchedule.push({ day, startTime: slot.startTime, endTime: slot.endTime });
+                                    });
+                                });
+                    
+                                // Define day order for sorting
+                                const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                    
+                                // Function to get the earliest day index for sorting
+                                function getEarliestDayIndex(day) {
+                                    if (day.includes('-')) {
+                                        const [startDay] = day.split(' - ').map(d => d.trim());
+                                        return daysOfWeek.indexOf(startDay);
+                                    }
+                                    return daysOfWeek.indexOf(day);
+                                }
+                    
+                                // Sort schedule: ranges first by earliest day, then single days by week order
+                                mergedSchedule.sort((a, b) => {
+                                    const aIsRange = a.day.includes('-');
+                                    const bIsRange = b.day.includes('-');
+                                    const aIndex = getEarliestDayIndex(a.day);
+                                    const bIndex = getEarliestDayIndex(b.day);
+                    
+                                    // Prioritize ranges over single days
+                                    if (aIsRange && !bIsRange) return -1;
+                                    if (!aIsRange && bIsRange) return 1;
+                    
+                                    // Sort by earliest day index
+                                    return aIndex - bIndex;
+                                });
+                            %>
+                            <% mergedSchedule.forEach(avail => { %>
+                                <tr>
+                                    <th><%= avail.day %></th>
+                                    <td class="text-end"><%= avail.startTime %> - <%= avail.endTime %></td>
+                                </tr>
                             <% }) %>
                         </table>
                     </div>

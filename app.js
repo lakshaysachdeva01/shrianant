@@ -325,6 +325,7 @@ app.get('/posts', async (req, res) => {
     const events = await getevents();
     const casestudy = await getcasestudy();
     const gallery= await getgallery();
+    console.log(posts);
     const seoDetails = {
         title: "",
         metaDescription: "",
