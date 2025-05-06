@@ -14867,7 +14867,7 @@ section {
 }
 @media only screen and (max-width: 991px) {
   .hero-banner.style-1 {
-    height: auto;
+    height: 100%;
     padding-top: 50px;
   }
   .hero-banner.style-1 .hero-thumbnail {

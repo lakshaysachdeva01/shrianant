@@ -35,7 +35,7 @@
 <!-- Hero Banner Section with Swiper -->
 <div class="hero-banner style-1">
     <!-- Swiper Container for Background Images -->
-    <div class="hero-swiper-container">
+    <div class="hero-swiper-container webbanner">
         <div class="swiper hero-swiper">
             <div class="swiper-wrapper">
                 <% banners.forEach(slide => { %>
@@ -47,6 +47,20 @@
         </div>
     </div>
     
+
+    <div class="hero-swiper-container mobilebanner">
+        <div class="swiper hero-swiper">
+            <div class="swiper-wrapper">
+                <% banners.forEach(slide => { %>
+                    <div class="swiper-slide">
+                        <img src="<%= process.env.S3_BASE_URL + slide.bannerImage.mobileView %>" alt="Hero Banner" class="hero-background-image">
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 
@@ -215,7 +229,10 @@
         left: 0;
 
     }
-    
+
+    .hero-banner .swiper-slide img{
+    height: 100% !important;
+    }
     .hero-swiper {
         width: 100%;
         height: 100%;
@@ -295,11 +312,11 @@
         margin: 20px 0;
     }
     
-    .desktop-additional-banner {
+    .webbanner {
         display: block;
     }
     
-    .mobile-additional-banner {
+    .mobilebanner {
         display: none;
     }
     
@@ -309,12 +326,12 @@
     }
     
     /* Responsive styles */
-    @media (max-width: 768px) {
-        .desktop-additional-banner {
+    @media (max-width: 600px) {
+        .webbanner {
             display: none;
         }
         
-        .mobile-additional-banner {
+        .mobilebanner {
             display: block;
         }
         

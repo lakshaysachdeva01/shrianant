@@ -1,9 +1,14 @@
-<div class="wizard-container" style="padding: 10px 53px 40px 53px; border: 2px solid #2ab0e5; border-radius: 40px">
+<div class="wizard-container" style="border: 2px solid #2ab0e5; border-radius: 40px">
     <style>
         .wizard-container {
+            padding: 10px 53px 40px 53px; 
             background-color: transparent;
             max-width: 800px;
             margin: 12px auto;
+        }
+        @media (max-width:600px) {
+            .wizard-container {
+                padding:30px 18px; }
         }
         .progress-bar {
             display: none;
@@ -112,6 +117,8 @@
             .time-tab {
                 padding: 10px 39px;
             }
+            .date-tabs , .time-tabs {
+                padding: 0 4px;}
         }
         @media (max-width:450px) {
             .time-tab {
@@ -122,6 +129,7 @@
             .time-tab {
                 padding: 10px 23px;
             }
+
         }
         @media (max-width:400px) {
             .time-tab {
